@@ -1,0 +1,818 @@
+﻿Task ID,Task Name,Description,Priority,Status,Subtask IDs
+P001,[Case Management – Case Intake] PBI001 — Create a new case,"User Story: As an investigator, I want to create a new case and enter its core details so that I can start working on it inside Adheed.
+
+Acceptance Criteria:
+*   Core fields can be entered: case number, case type, report date and time, location, short description, case status
+*   Required core fields must be filled before the case can be created
+*   A unique case ID is generated
+*   The new case appears in the cases list
+*   The user can open the case file immediately after creating it
+*   The case status is clearly visible
+Priority: Must | Source: US-01 | Epic: EPIC 01 — Case & Case File Management",High,to do,"D001,F001,B001"
+D001,[UX] PBI001 — Create a new case,"Design scope — screens and states needed before build can start:
+*   Create-case form layout in RTL, field order and grouping
+*   Validation and error states for required fields
+*   Success state and entry point into the case file
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F001,[FE] PBI001 — Create a new case,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Core fields can be entered: case number, case type, report date and time, location, short description, case status
+*   Required core fields must be filled before the case can be created
+*   The user can open the case file immediately after creating it
+*   The case status is clearly visible
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B001,[BE] PBI001 — Create a new case,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Required core fields must be filled before the case can be created
+*   A unique case ID is generated
+*   The new case appears in the cases list
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P002,[Case Management – Case File] PBI002 — View the case file in one place,"User Story: As an investigator, I want to view the case file in one place so that I can reach all the information and evidence linked to it.
+
+Acceptance Criteria:
+*   Core case data is displayed
+*   Evidence linked to the case is displayed
+*   People linked to the case are displayed
+*   Places and times linked to the case are displayed
+*   Latest updates and analysis results are displayed
+*   The user can drill into the details of any element
+Priority: Must | Source: US-02 | Epic: EPIC 01 — Case & Case File Management",High,to do,"D002,F002,B002"
+D002,[UX] PBI002 — View the case file in one place,"Design scope — screens and states needed before build can start:
+*   Case file layout: header, sections, and how evidence / people / places / times are grouped
+*   Empty states for a case with no evidence yet
+*   Navigation pattern from the case file into element details
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F002,[FE] PBI002 — View the case file in one place,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Core case data is displayed
+*   Evidence, people, places and times linked to the case are displayed in their sections
+*   Latest updates and analysis results are displayed
+*   The user can drill into the details of any element
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B002,[BE] PBI002 — View the case file in one place,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   One endpoint returns the full case file payload: case data, evidence, people, places, times
+*   Latest updates and analysis results are included in the payload
+*   Only elements belonging to this case are returned
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P003,[Case Management – Case File] PBI003 — Update case data,"User Story: As an investigator, I want to edit case data when new information appears so that the case file stays up to date.
+
+Acceptance Criteria:
+*   The user can edit the fields that are allowed to be edited
+*   Changes are saved
+*   New data appears immediately in the case file
+*   Editing never deletes evidence linked to the case
+Priority: Must | Source: US-03 | Epic: EPIC 01 — Case & Case File Management",High,to do,"F003,B003"
+F003,[FE] PBI003 — Update case data,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   The user can edit the fields that are allowed to be edited
+*   New data appears immediately in the case file after saving
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B003,[BE] PBI003 — Update case data,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Changes are saved
+*   Only whitelisted fields are editable
+*   Editing never deletes evidence linked to the case
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P004,[Evidence Management – Evidence Intake] PBI004 — Add evidence to a case,"User Story: As an investigator, I want to add evidence to a case so that the system can organise it and link it to the rest of the case.
+
+Acceptance Criteria:
+*   The user can add an evidence item to a case
+*   The user can select the evidence type: photo, video, CCTV recording, forensic report, medical report, witness statement, suspect statement, digital evidence, other file
+*   The user can add a name and description for the evidence
+*   The user can set the source of the evidence
+*   The user can add the related date and time when available
+*   The evidence is linked to the correct case
+*   The evidence appears in the evidence list
+Priority: Must | Source: US-04 | Epic: EPIC 02 — Evidence Management",High,to do,"D004,F004,B004"
+D004,[UX] PBI004 — Add evidence to a case,"Design scope — screens and states needed before build can start:
+*   Add-evidence flow: type picker, upload area, metadata fields
+*   How each evidence type is represented (icon, label, colour)
+*   Upload progress, success and failure states
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F004,[FE] PBI004 — Add evidence to a case,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   The user can add an evidence item to a case
+*   The user can select the evidence type
+*   The user can add a name, description and source
+*   The user can add the related date and time when available
+*   The evidence appears in the evidence list
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B004,[BE] PBI004 — Add evidence to a case,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Evidence file and metadata are stored
+*   Evidence type is validated against the supported list
+*   The evidence is linked to the correct case
+*   The evidence list endpoint returns the new item
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P005,[Evidence Management – Evidence View] PBI005 — View evidence details,"User Story: As an investigator, I want to open the details of any evidence item so that I can see its source, its data and how it relates to the case.
+
+Acceptance Criteria:
+*   The user can open an evidence item
+*   Core evidence data is displayed
+*   The evidence source is displayed
+*   Time and location data are displayed when available
+*   Elements linked to the evidence are displayed
+*   The user can return to the case file easily
+Priority: Must | Source: US-05 | Epic: EPIC 02 — Evidence Management",High,to do,"D005,F005,B005"
+D005,[UX] PBI005 — View evidence details,"Design scope — screens and states needed before build can start:
+*   Evidence detail view with preview area per media type
+*   Source and metadata block
+*   Linked-elements block and back navigation
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F005,[FE] PBI005 — View evidence details,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   The user can open an evidence item and see its core data, source, time and location
+*   Elements linked to the evidence are displayed
+*   The user can return to the case file easily
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B005,[BE] PBI005 — View evidence details,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Evidence detail endpoint returns core data, source, time, location and linked elements
+*   Media files are served securely and only within the owning case
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P006,[Evidence Management – Evidence List] PBI006 — Classify and organise evidence,"User Story: As an investigator, I want to classify and organise evidence so that I can reach it quickly during the investigation.
+
+Acceptance Criteria:
+*   Evidence can be viewed by type
+*   Evidence can be searched
+*   Evidence can be sorted by date or by type
+*   The status of each evidence item is clearly shown
+*   Evidence from different cases never mixes
+Priority: Must | Source: US-06 | Epic: EPIC 02 — Evidence Management",High,to do,"D006,F006,B006"
+D006,[UX] PBI006 — Classify and organise evidence,"Design scope — screens and states needed before build can start:
+*   Evidence list layout with filter, sort and search controls
+*   Status chip design per evidence state
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F006,[FE] PBI006 — Classify and organise evidence,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Evidence can be viewed by type
+*   Evidence can be searched
+*   Evidence can be sorted by date or by type
+*   The status of each evidence item is clearly shown
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B006,[BE] PBI006 — Classify and organise evidence,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Filter, sort and search are supported as query parameters
+*   Every query is scoped to a single case so evidence never mixes across cases
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P007,"[Entity Linking – Relationships] PBI007 — Link evidence to people, places and times","User Story: As an investigator, I want to see the relationships between evidence, people, places and times so that I can understand the case as one connected picture.
+
+Acceptance Criteria:
+*   Evidence can be linked to a person
+*   Evidence can be linked to a location
+*   Evidence can be linked to a time or a time range
+*   The link appears inside the case file
+*   The user can see the reason or source behind the link
+*   The user can jump from an element to the evidence linked to it
+Priority: Must | Source: US-07 | Epic: EPIC 03 — Entity Linking",High,to do,"F007,B007"
+F007,"[FE] PBI007 — Link evidence to people, places and times","Frontend scope — build the client behaviour for these acceptance criteria:
+*   Linking UI for person, location and time
+*   The link appears inside the case file
+*   The reason or source behind the link is visible
+*   The user can jump from an element to the evidence linked to it
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B007,"[BE] PBI007 — Link evidence to people, places and times","Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Relation model connecting evidence to person, place and time entities
+*   Every relation stores its reason or source
+*   Endpoint returns the relations of any given element
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P008,[Entity Linking – Case Network] PBI008 — Build the case network,"User Story: As an investigator, I want to see people, evidence, places and times in one network so that I can spot the important relationships.
+
+Acceptance Criteria:
+*   The main case elements appear in one connected network
+*   Each element type is visually distinguished
+*   Relationships between elements are shown
+*   The user can select an element to see its details
+*   The user can move from one element to a connected element
+*   The network updates when new information is added
+Priority: Must | Source: US-08 | Epic: EPIC 03 — Entity Linking",High,to do,"D008,F008,B008"
+D008,[UX] PBI008 — Build the case network,"Design scope — screens and states needed before build can start:
+*   Network visual language: node shapes and colours per element type, edge styles
+*   Selected-node detail panel
+*   Behaviour on a dense graph (zoom, focus, declutter)
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F008,[FE] PBI008 — Build the case network,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Render the network with nodes and edges
+*   Each element type is visually distinguished
+*   The user can select an element to see its details and move to a connected element
+*   The network re-renders when new information is added
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B008,[BE] PBI008 — Build the case network,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Graph endpoint returns nodes and edges for a case
+*   The graph is recalculated when elements or relations change
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P009,[Reasoning Engine – Relationship Discovery] PBI009 — Suggest possible relationships between evidence,"User Story: As an investigator, I want the system to suggest possible relationships between evidence so that it helps me find links that are not immediately obvious.
+
+Acceptance Criteria:
+*   The system analyses the data available in the case
+*   It suggests possible relationships between evidence and elements
+*   A conclusion is never presented as confirmed fact when it is only an inference
+*   The evidence or source behind each suggestion is shown
+*   The user can review the suggestion
+*   Accepting or rejecting the relationship stays the user's decision
+Priority: Must | Source: US-09 | Epic: EPIC 04 — Reasoning & Analysis Engine",High,to do,"F009,B009"
+F009,[FE] PBI009 — Suggest possible relationships between evidence,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Suggestions list with clear Inference labelling
+*   The evidence or source behind each suggestion is shown
+*   Accept and reject controls, with the resulting state visible
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B009,[BE] PBI009 — Suggest possible relationships between evidence,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Analysis runs over the case data and returns suggested relationships
+*   Each suggestion carries the supporting evidence IDs and a confidence or uncertainty marker
+*   Suggestion state (suggested / accepted / rejected) is stored and never auto-accepted
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P010,[Reasoning Engine – Contradiction Detection] PBI010 — Detect contradictions,"User Story: As an investigator, I want the system to alert me when information conflicts so that I can review it.
+
+Acceptance Criteria:
+*   The system identifies potentially conflicting information
+*   The two conflicting items or sources are shown
+*   The system explains why they are considered conflicting
+*   The investigator can open the sources behind the contradiction
+*   A contradiction is never treated as proof of guilt
+*   The user can review the alert
+Priority: Must | Source: US-10 | Epic: EPIC 04 — Reasoning & Analysis Engine",High,to do,"D010,F010,B010"
+D010,[UX] PBI010 — Detect contradictions,"Design scope — screens and states needed before build can start:
+*   Contradiction alert component and its placement in the case file and investigation room
+*   Side-by-side view of the two conflicting sources
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F010,[FE] PBI010 — Detect contradictions,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Contradiction alerts list with both conflicting items shown side by side
+*   The explanation of why they conflict is visible
+*   The investigator can open the sources behind the contradiction and mark the alert as reviewed
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B010,[BE] PBI010 — Detect contradictions,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Contradiction rules run over case data and return conflicting pairs
+*   Each result includes the reason and the source IDs
+*   No result is labelled as proof of guilt in the payload
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P011,[Reasoning Engine – Gap Detection] PBI011 — Detect gaps in the sequence,"User Story: As an investigator, I want the system to point out periods or events with not enough information so that I know where more investigation is needed.
+
+Acceptance Criteria:
+*   Possible time gaps are displayed
+*   The information before and after the gap is displayed
+*   Confirmed information is distinguished from incomplete information
+*   The system never fills a gap with an assumption presented as fact
+*   The investigator can review the evidence around the gap
+Priority: Must | Source: US-11 | Epic: EPIC 04 — Reasoning & Analysis Engine",High,to do,"F011,B011"
+F011,[FE] PBI011 — Detect gaps in the sequence,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Gaps are marked visually on the timeline and listed as alerts
+*   The information before and after each gap is displayed
+*   Confirmed and incomplete information are visually distinguished
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B011,[BE] PBI011 — Detect gaps in the sequence,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Gap detection over timed events returns gap ranges with the events on each side
+*   Each event is flagged as confirmed or incomplete
+*   No inferred content is returned inside a gap as fact
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P012,[Event Reconstruction – Timeline] PBI012 — Case timeline,"User Story: As an investigator, I want to see the events ordered in time so that I can understand the sequence of the case.
+
+Acceptance Criteria:
+*   Events are displayed on a timeline
+*   Events are ordered by date and time when available
+*   Every event is linked to a source or an evidence item
+*   Event details can be opened
+*   Events without an exact time are clearly marked
+*   The timeline updates when new evidence is added
+Priority: Must | Source: US-12 | Epic: EPIC 05 — Event Sequence Reconstruction",High,to do,"D012,F012,B012"
+D012,[UX] PBI012 — Case timeline,"Design scope — screens and states needed before build can start:
+*   Timeline layout in RTL, event card design, and density at 15+ events
+*   How an event with no exact time is represented
+*   Gap and contradiction markers on the timeline
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F012,[FE] PBI012 — Case timeline,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Render the timeline ordered by date and time
+*   Every event shows its source or evidence link and opens its details
+*   Events without an exact time are clearly marked
+*   The timeline re-renders when new evidence is added
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B012,[BE] PBI012 — Case timeline,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Timeline endpoint returns events ordered by time with their source or evidence IDs
+*   Events with an uncertain or missing time are flagged
+*   The timeline is recalculated when new evidence is added
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P013,[Event Reconstruction – Sequence Engine] PBI013 — Event sequence engine,"User Story: As an investigator, I want the system to suggest a possible sequence of events based on the available evidence so that I can understand how the case developed.
+
+Acceptance Criteria:
+*   The system uses the available evidence and time data
+*   A suggested sequence of events is displayed
+*   Every step in the sequence is linked to the evidence supporting it
+*   The system states clearly when a step is inferred and not confirmed
+*   The investigator can review the sequence
+*   The sequence is never presented as the final truth
+Priority: Must | Source: US-13 | Epic: EPIC 05 — Event Sequence Reconstruction",High,to do,"F013,B013"
+F013,[FE] PBI013 — Event sequence engine,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Suggested sequence view with a match or confidence indicator
+*   Every step shows the evidence supporting it
+*   Inferred steps are visually distinct from confirmed ones
+*   A clear statement that this is a suggestion, not a conclusion
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B013,[BE] PBI013 — Event sequence engine,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Sequence generation uses available evidence and time data
+*   Each step returns its supporting evidence IDs and an inferred / confirmed flag
+*   The sequence is regenerated when new evidence arrives
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P014,[Investigation Room – Main Workspace] PBI014 — Investigation room view,"User Story: As an investigator, I want one interactive space that brings together the key elements of the case so that I can analyse it as a whole.
+
+Acceptance Criteria:
+*   The relationship network is displayed
+*   The timeline is displayed
+*   The key evidence is displayed
+*   Contradiction and gap alerts are displayed
+*   The user can move from the investigation room into the details of any element
+*   The content refreshes when new data is added
+Priority: Must | Source: US-14 | Epic: EPIC 06 — Smart Investigation Room",High,to do,"D014,F014,B014"
+D014,[UX] PBI014 — Investigation room view,"Design scope — screens and states needed before build can start:
+*   Investigation room composition: how network, timeline, evidence and alerts share the screen
+*   Panel priority and collapse behaviour on smaller screens
+*   This is the demo screen — it needs the strongest visual treatment
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F014,[FE] PBI014 — Investigation room view,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Compose network, timeline, key evidence and alerts in one screen
+*   The user can move from the room into the details of any element
+*   The content refreshes when new data is added
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B014,[BE] PBI014 — Investigation room view,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   One aggregated endpoint feeds the room so it loads in a single request
+*   The payload reflects the latest analysis state
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P015,[Investigation Room – Element Inspector] PBI015 — Explore the relationships of any element,"User Story: As an investigator, I want to click any person, evidence item or location and see what is connected to it so that I can follow the trail of information.
+
+Acceptance Criteria:
+*   Any element in the network can be selected
+*   Its relationships are displayed
+*   The evidence supporting each relationship is displayed
+*   The user can open the linked source
+*   The user can return to the network easily
+Priority: Must | Source: US-15 | Epic: EPIC 06 — Smart Investigation Room",High,to do,"F015,B015"
+F015,[FE] PBI015 — Explore the relationships of any element,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Selecting any element opens an inspector panel with its relationships
+*   The evidence supporting each relationship is displayed and the source can be opened
+*   The user can return to the network easily
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B015,[BE] PBI015 — Explore the relationships of any element,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Endpoint returns the relationships of a given element with their supporting evidence IDs
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P016,[Crime Scene View – 2D Scene] PBI016 — Show evidence locations on a 2D case scene,"User Story: As an investigator, I want to see the locations of evidence and people on a spatial representation so that I can understand the relationship between place and events.
+
+Acceptance Criteria:
+*   A spatial representation of the case location is displayed
+*   Evidence can be placed at its location
+*   The type of each element is visible on the scene
+*   Clicking an evidence marker opens its details
+*   Scene elements are linked to the case file
+*   Locations can be linked to time when the data is available
+
+MVP note: a 2D map or image-based scene is enough. No advanced 3D simulation.
+Priority: Must | Source: US-16 | Epic: EPIC 07 — Crime Scene Representation",High,to do,"D016,F016,B016"
+D016,[UX] PBI016 — Show evidence locations on a 2D case scene,"Design scope — screens and states needed before build can start:
+*   2D scene treatment: base map or image, marker set per element type
+*   Marker selected and hover states
+*   How the time control sits on the scene
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F016,[FE] PBI016 — Show evidence locations on a 2D case scene,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Render a 2D map or image-based scene with placeable markers
+*   The type of each element is visible and clicking a marker opens its details
+*   Markers can be filtered or stepped through by time when time data exists
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B016,[BE] PBI016 — Show evidence locations on a 2D case scene,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Store coordinates and optional time for each scene element
+*   Endpoint returns scene elements linked to the case
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P017,[Case Memory – Incremental Analysis] PBI017 — Re-run analysis when new evidence is added,"User Story: As an investigator, I want the case analysis to update when new evidence is added so that I do not have to re-analyse the case manually from scratch.
+
+Acceptance Criteria:
+*   New evidence can be added to an existing case
+*   The new evidence appears in the case file
+*   Affected relationships are updated
+*   The timeline is updated when needed
+*   Any new contradictions or links caused by the evidence are shown
+*   The system states that the analysis was updated because of the new evidence
+Priority: Must | Source: US-17 | Epic: EPIC 08 — Smart Case Memory",High,to do,"F017,B017"
+F017,[FE] PBI017 — Re-run analysis when new evidence is added,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   The case file, network and timeline reflect the new evidence without a manual refresh
+*   New contradictions or links are surfaced to the user
+*   A visible note states that the analysis was updated because of the new evidence
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B017,[BE] PBI017 — Re-run analysis when new evidence is added,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Adding evidence triggers re-analysis of relationships, timeline and alerts
+*   The response identifies what changed and which evidence triggered it
+*   Previously accepted user decisions are not silently overwritten
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P018,[Explainability – Reasoning Trace] PBI018 — Explain why a conclusion was reached,"User Story: As an investigator, I want to know why the system suggested a relationship or a conclusion so that I can judge it myself.
+
+Acceptance Criteria:
+*   Every suggested conclusion or relationship has a clear reason
+*   The evidence the system relied on is displayed
+*   The user can open the source
+*   The system distinguishes Evidence / Inference / Uncertainty
+*   AI output is never presented as a final decision
+Priority: Must | Source: US-18 | Epic: EPIC 09 — Explainability & Human-in-the-loop",High,to do,"D018,F018,B018"
+D018,[UX] PBI018 — Explain why a conclusion was reached,"Design scope — screens and states needed before build can start:
+*   The explainability pattern: how a reason, its evidence and its uncertainty level are shown
+*   Visual language for Evidence vs Inference vs Uncertainty
+*   This pattern is reused everywhere the AI outputs something
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F018,[FE] PBI018 — Explain why a conclusion was reached,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Every AI output renders its reason and supporting evidence
+*   Evidence, Inference and Uncertainty are visually distinct
+*   The user can open the source from the explanation
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B018,[BE] PBI018 — Explain why a conclusion was reached,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Every AI output includes a reason, supporting evidence IDs and a certainty level
+*   No output is returned without a traceable basis
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P019,[Human-in-the-loop – Review & Approval] PBI019 — Review and approve system output,"User Story: As an investigator, I want to review the system output before it is accepted so that the final decision stays with me.
+
+Acceptance Criteria:
+*   The user can review a conclusion
+*   The user can accept or reject a relationship or suggestion
+*   A suggestion is never treated as fact automatically
+*   The status of a suggestion is clearly visible
+*   The system cannot make an accusation or conviction decision on behalf of the investigator
+Priority: Must | Source: US-19 | Epic: EPIC 09 — Explainability & Human-in-the-loop",High,to do,"F019,B019"
+F019,[FE] PBI019 — Review and approve system output,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Accept and reject controls on every suggestion
+*   The status of each suggestion is clearly visible
+*   Rejected suggestions stop influencing the displayed analysis
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B019,[BE] PBI019 — Review and approve system output,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Suggestion status is stored per user action and defaults to pending
+*   Accepted and rejected states are respected by later analysis runs
+*   No endpoint returns an accusation or conviction verdict
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P020,[Evidence Integrity – Source Attribution] PBI020 — Show the source of every piece of information,"User Story: As an investigator, I want to know the source of every piece of information so that I can verify it.
+
+Acceptance Criteria:
+*   Every evidence item is linked to its source
+*   The available source data is displayed
+*   The user can go back to the linked evidence
+*   No conclusion is displayed without a way to see the evidence behind it
+Priority: Must | Source: US-20 | Epic: EPIC 10 — Evidence Integrity & Governance",High,to do,"F020,B020"
+F020,[FE] PBI020 — Show the source of every piece of information,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Source is displayed on evidence, events and conclusions
+*   The user can go back to the linked evidence from anywhere it is referenced
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B020,[BE] PBI020 — Show the source of every piece of information,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Every evidence record stores its source
+*   No analysis endpoint returns a conclusion without evidence IDs attached
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P021,[Evidence Integrity – Activity Log] PBI021 — Case update log,"User Story: As an authorised user, I want to see the changes made to the case so that the way the case file evolved is clear.
+
+Acceptance Criteria:
+*   Adding evidence is logged
+*   Important edits are logged
+*   The time of each change is shown
+*   The user or actor is shown when available
+*   The change log can be reviewed
+Priority: Should | Source: US-21 | Epic: EPIC 10 — Evidence Integrity & Governance",Normal,to do,"F021,B021"
+F021,[FE] PBI021 — Case update log,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Activity log panel showing change type, time and actor
+*   The log can be opened from the case file
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B021,[BE] PBI021 — Case update log,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Evidence additions and important edits are written to a log
+*   Each entry stores timestamp and actor when available
+*   Log endpoint returns entries for a case, newest first
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P022,[Search & Navigation – In-case Search] PBI022 — Search inside a case,"User Story: As an investigator, I want to search inside the case file so that I can reach the evidence, person or information I need quickly.
+
+Acceptance Criteria:
+*   Evidence can be searched
+*   People can be searched
+*   Locations can be searched
+*   Events can be searched
+*   Only results belonging to the current case are returned
+Priority: Should | Source: US-22 | Epic: EPIC 11 — Search & Navigation",Normal,to do,"F022,B022"
+F022,[FE] PBI022 — Search inside a case,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Search input with results grouped by type: evidence, people, locations, events
+*   Selecting a result navigates to that element
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B022,[BE] PBI022 — Search inside a case,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Search endpoint covers evidence, people, locations and events
+*   Results are scoped to the current case only
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P023,[Digital Evidence – Tampering Indicators] PBI023 — Preliminary tampering indicator,"User Story: As an investigator, I want the system to flag technical indicators that may justify a deeper examination of an image or a video so that I can review the evidence.
+
+Acceptance Criteria:
+*   A suitable file can be submitted for analysis
+*   The system shows technical indicators when they are available
+*   The system states that the result is an indicator, not a final judgement
+*   Evidence is never automatically labelled as forged without human or expert verification
+*   The data the indicator is based on is displayed
+Priority: Stretch | Source: US-23 | Epic: EPIC 12 — Digital Evidence Indicators",Low,to do,"F023,B023"
+F023,[FE] PBI023 — Preliminary tampering indicator,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Trigger analysis from the evidence detail view
+*   Indicators are displayed with an explicit 'indicator, not a verdict' statement
+*   The underlying data behind each indicator is visible
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B023,[BE] PBI023 — Preliminary tampering indicator,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Accept a file for analysis and return technical indicators (for example metadata and compression checks)
+*   No automatic forged / authentic classification is written to the evidence record
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P024,[Hypotheses – Hypothesis Builder] PBI024 — Create and compare multiple hypotheses,"User Story: As an investigator, I want to compare more than one hypothesis so that I can assess how well each one fits the evidence.
+
+Acceptance Criteria:
+*   The user can create more than one hypothesis
+*   Evidence can be linked to each hypothesis
+*   Supporting and opposing evidence are displayed
+*   Conflict points are displayed
+*   The system does not pick the final hypothesis on behalf of the investigator
+Priority: Stretch | Source: US-24 | Epic: EPIC 13 — Hypothesis Comparison",Low,to do,"F024,B024"
+F024,[FE] PBI024 — Create and compare multiple hypotheses,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Hypothesis comparison view with supporting and opposing evidence per hypothesis
+*   Conflict points are highlighted
+*   No hypothesis is presented as the system's own answer
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B024,[BE] PBI024 — Create and compare multiple hypotheses,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Store hypotheses and their linked evidence
+*   Return supporting, opposing and conflicting evidence per hypothesis
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P025,[Scenario Simulation – Scenario Runner] PBI025 — Simulate a possible scenario,"User Story: As an investigator, I want to test a possible scenario against the evidence so that I can see how consistent it is with the available information.
+
+Acceptance Criteria:
+*   The user can define a scenario
+*   The system compares the scenario against the available evidence
+*   Matching points are identified
+*   Conflicting points are identified
+*   The assumptions used are stated
+*   The scenario is never presented as fact
+Priority: Stretch | Source: US-25 | Epic: EPIC 14 — Scenario Simulation",Low,to do,"F025,B025"
+F025,[FE] PBI025 — Simulate a possible scenario,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Scenario input and a result view showing matches, conflicts and assumptions
+*   An explicit statement that the scenario is a test, not a conclusion
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B025,[BE] PBI025 — Simulate a possible scenario,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Compare a scenario against case evidence and return matches, conflicts and assumptions used
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P026,[System Interface – Dashboard] PBI026 — Dashboard,"User Story: As an investigator, I want a clear dashboard so that I can reach cases and important information quickly.
+
+Acceptance Criteria:
+*   Current cases are displayed
+*   A case can be opened directly
+*   Important alerts are displayed
+*   Latest updates are displayed
+*   Navigation between the areas of the system is clear
+Priority: Must | Source: US-26 | Epic: EPIC 15 — System Interface",High,to do,"D026,F026,B026"
+D026,[UX] PBI026 — Dashboard,"Design scope — screens and states needed before build can start:
+*   Dashboard layout: cases list, alerts and latest updates
+*   Global navigation structure in RTL
+*   Empty state for a workspace with no cases
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F026,[FE] PBI026 — Dashboard,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Render cases, alerts and latest updates
+*   A case can be opened directly from the dashboard
+*   Global navigation is implemented and consistent
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B026,[BE] PBI026 — Dashboard,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Dashboard endpoint returns cases, alert counts and recent activity
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P027,[System Interface – Arabic & RTL] PBI027 — Arabic and RTL support,"User Story: As an Arabic-speaking user, I want to use the system in Arabic with RTL direction so that the experience feels natural and clear.
+
+Acceptance Criteria:
+*   All core screens support Arabic
+*   The interface direction is RTL
+*   Text is clear and readable
+*   Tables and interactive elements behave correctly in RTL
+*   Terminology is consistent across the whole system
+Priority: Must | Source: US-27 | Epic: EPIC 15 — System Interface",High,to do,"D027,F027"
+D027,[UX] PBI027 — Arabic and RTL support,"Design scope — screens and states needed before build can start:
+*   Arabic terminology list agreed once and used everywhere
+*   RTL review pass over every delivered screen
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F027,[FE] PBI027 — Arabic and RTL support,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   RTL direction is applied globally, including icons, charts and scroll direction
+*   All core screens render in Arabic with readable typography
+*   Tables and interactive elements behave correctly in RTL
+*   Terminology matches the agreed list
+
+Refine against the full criteria on the parent task before starting.",,to do,
+P028,[Non-Functional – Usability] PBI028 — Usability quality gate,"User Story: As the team, we want the interface to stay usable for a non-technical investigator so that the prototype is judged on clarity, not on how clever it looks.
+
+Acceptance Criteria:
+*   The interface is clear to a non-technical user
+*   Core information is reachable in the smallest possible number of steps
+*   Important information is visible without visual clutter
+*   One person outside the team can complete the main flow without being guided
+Priority: Should | Source: NFR-01 | Epic: NFR — Non-Functional Requirements",Normal,to do,F028
+F028,[FE] PBI028 — Usability quality gate,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Walk the full happy path and cut any step that is not needed
+*   Check that the main action on every screen is obvious within 3 seconds
+
+Refine against the full criteria on the parent task before starting.",,to do,
+P029,[Non-Functional – Performance] PBI029 — Performance quality gate,"User Story: As the team, we want the prototype to feel fast so that the demo never stalls in front of the judges.
+
+Acceptance Criteria:
+*   Core pages load at a speed appropriate for a prototype
+*   There is no visible delay when moving between parts of a case
+*   The network and timeline stay responsive with the full demo dataset
+Priority: Should | Source: NFR-02 | Epic: NFR — Non-Functional Requirements",Normal,to do,"F029,B029"
+F029,[FE] PBI029 — Performance quality gate,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Measure render time of the network and timeline with the full seed data
+*   Add loading states so no screen ever looks frozen
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B029,[BE] PBI029 — Performance quality gate,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Avoid N+1 queries on the case file and investigation room endpoints
+*   Cache or precompute analysis results where recalculation is expensive
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P030,[Non-Functional – Security by Design] PBI030 — Security by design quality gate,"User Story: As the team, we want evidence handled as sensitive data so that the prototype reflects how the real system would behave.
+
+Acceptance Criteria:
+*   Case data is never shown to an unauthorised user
+*   Cases are isolated from each other
+*   Evidence is treated as sensitive data
+*   No real sensitive data is used in the prototype
+Priority: Must | Source: NFR-03 | Epic: NFR — Non-Functional Requirements",High,to do,"F030,B030"
+F030,[FE] PBI030 — Security by design quality gate,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   No case identifiers or evidence data are exposed in client-side storage or logs
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B030,[BE] PBI030 — Security by design quality gate,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Every case-scoped endpoint enforces authorisation server-side
+*   Cross-case data access is impossible by ID guessing
+*   Only fictional seed data is used
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P031,[Non-Functional – Explainability] PBI031 — Explainability quality gate,"User Story: As the team, we want every important AI output to carry its basis so that Adheed is not just another black-box AI demo.
+
+Acceptance Criteria:
+*   Every important AI output has a source or a reason
+*   The system distinguishes Fact, Evidence, Inference and Uncertainty
+*   No screen shows an AI output without a way to trace it back
+Priority: Must | Source: NFR-04 | Epic: NFR — Non-Functional Requirements",High,to do,"F031,B031"
+F031,[FE] PBI031 — Explainability quality gate,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Audit every screen that shows AI output and confirm the reason and evidence are visible
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B031,[BE] PBI031 — Explainability quality gate,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Every analysis response carries reason, evidence IDs and certainty level
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P032,[Non-Functional – Human-in-the-loop] PBI032 — Human-in-the-loop quality gate,"User Story: As the team, we want the investigator to stay the decision maker so that the product never overclaims what AI is doing.
+
+Acceptance Criteria:
+*   The AI supports the investigator and does not replace them
+*   There is no automatic accusation or conviction decision anywhere in the product
+*   The investigator holds the final decision
+*   Wording across the UI and the poster never claims the system decides
+Priority: Must | Source: NFR-05 | Epic: NFR — Non-Functional Requirements",High,to do,"F032,B032"
+F032,[FE] PBI032 — Human-in-the-loop quality gate,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Review all UI copy for wording that implies the system decides
+*   Every suggestion has an explicit accept or reject action
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B032,[BE] PBI032 — Human-in-the-loop quality gate,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   No endpoint returns a verdict, guilt score or accusation
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P033,"[Foundation – Project Setup] PBI033 — Repository, environments and project structure","User Story: As the dev team, we want a repo, agreed branching rules and a running skeleton so that frontend and backend can work in parallel from day one.
+
+Acceptance Criteria:
+*   GitHub repo is created with the agreed frontend and backend structure
+*   Branch and pull request rules are written in the README
+*   Local run instructions work on both sides
+*   Environment variables are documented and never committed
+*   The ClickUp board is the single source of truth for work in progress
+Priority: Must | Source: TECH-01 | Epic: EPIC 00 — Foundation",High,to do,"F033,B033"
+F033,"[FE] PBI033 — Repository, environments and project structure","Frontend scope — build the client behaviour for these acceptance criteria:
+*   Frontend project scaffolded, routing in place, runs locally from a clean clone
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B033,"[BE] PBI033 — Repository, environments and project structure","Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Backend project scaffolded, runs locally from a clean clone, environment documented
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P034,"[Foundation – Design System] PBI034 — Design system, tokens and RTL foundation","User Story: As the frontend developer, I want the brand tokens and base components in place before screen work starts so that every screen looks consistent without rework.
+
+Acceptance Criteria:
+*   Brand colours exist as tokens: Deep Petroleum #0F3A3F, Graphite #1C2128, Ivory #F8F7F3, Evidence Bronze #A56A2B, Steel Blue #567387, Mist Gray #D9E0E4
+*   Typography is set up: IBM Plex Sans Arabic for Arabic, Space Grotesk for Latin text and numerals
+*   RTL direction works globally, including mirrored layout and icons
+*   Base components exist: button, card, status chip, modal, table, side panel, alert
+*   The dark investigation theme is applied consistently across base components
+Priority: Must | Source: TECH-02 | Epic: EPIC 00 — Foundation",High,to do,"D034,F034"
+D034,"[UX] PBI034 — Design system, tokens and RTL foundation","Design scope — screens and states needed before build can start:
+*   Component states delivered in Figma: default, hover, active, disabled, loading, error
+*   Spacing and type scale agreed once so the frontend is not guessing
+
+Hand off in Figma with RTL layout, all states, and the Adheed colour and type tokens. Frontend is blocked on this task, so flag it on the board the moment it slips.",,to do,
+F034,"[FE] PBI034 — Design system, tokens and RTL foundation","Frontend scope — build the client behaviour for these acceptance criteria:
+*   Tokens, typography and RTL configured globally
+*   Base component library built and used by every later screen
+
+Refine against the full criteria on the parent task before starting.",,to do,
+P035,[Foundation – Integration] PBI035 — API contract and mock data layer,"User Story: As the dev team, we want an agreed API contract and a mock layer so that the frontend is never blocked waiting for the backend.
+
+Acceptance Criteria:
+*   Endpoint list and payload shapes are agreed and written down
+*   Shared schema exists for case, evidence, person, place, event and relation
+*   Mock responses cover every agreed endpoint
+*   Switching from mock to real API is a single config change
+*   Any contract change is announced on the board before it is merged
+Priority: Must | Source: TECH-03 | Epic: EPIC 00 — Foundation",High,to do,"F035,B035"
+F035,[FE] PBI035 — API contract and mock data layer,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Mock data layer wired behind one config flag
+*   Types generated or written from the shared schema
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B035,[BE] PBI035 — API contract and mock data layer,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Endpoints implemented to match the agreed contract exactly
+*   Breaking changes announced on the board before merge
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P036,[Foundation – Demo Data] PBI036 — Demo case seed data,"User Story: As the team, we want one complete fictional case seeded end to end so that every feature has something real to show during the demo.
+
+Acceptance Criteria:
+*   One full fictional case is seeded, for example a jewellery store theft in case 23-4587
+*   The seed includes evidence of every supported type, plus people, places and timed events
+*   The seed produces at least one contradiction and one timeline gap
+*   No real personal or sensitive data is used
+*   The seed can be reset with one command before the demo
+Priority: Must | Source: TECH-04 | Epic: EPIC 00 — Foundation",High,to do,B036
+B036,[BE] PBI036 — Demo case seed data,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Seed script creates the full case, evidence, entities, relations and events
+*   Seed intentionally includes one contradiction and one gap
+*   Reset command restores a clean demo state
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P037,[Foundation – Delivery] PBI037 — Deployment and demo build,"User Story: As the team, we want a deployed, stable build so that the MVP can be judged without running it from a laptop.
+
+Acceptance Criteria:
+*   The frontend is deployed on a public URL
+*   The backend is reachable from the deployed frontend
+*   The demo build is reset to seed data before judging
+*   A recorded walkthrough exists as a fallback if the live demo fails
+*   Deployment steps are documented
+Priority: Must | Source: TECH-05 | Epic: EPIC 00 — Foundation",High,to do,"F037,B037"
+F037,[FE] PBI037 — Deployment and demo build,"Frontend scope — build the client behaviour for these acceptance criteria:
+*   Frontend deployed and pointing at the deployed backend
+
+Refine against the full criteria on the parent task before starting.",,to do,
+B037,[BE] PBI037 — Deployment and demo build,"Backend scope — data, endpoints, and server-side enforcement for these criteria:
+*   Backend deployed with CORS and environment configured for the public frontend
+
+Anything enforced only on the client is not enforced. Confirm the contract with the frontend before building.",,to do,
+P038,[Delivery – Competition Assets] PBI038 — Scientific poster and demo script,"User Story: As the team, we want the poster and the demo script to match what the MVP actually does so that we never overclaim in front of the judges.
+
+Acceptance Criteria:
+*   The poster describes only what the MVP actually does, with no overclaiming
+*   The poster covers the problem, the approach, explainability and human-in-the-loop
+*   The screens shown on the poster match the shipped UI
+*   The demo script covers the full happy path in under 5 minutes
+*   Final files are exported and submitted before the deadline
+Priority: Must | Source: TECH-06 | Epic: EPIC 00 — Foundation",High,to do,

@@ -1,0 +1,18 @@
+---
+description: Non-negotiable rules for the Adheed frontend
+alwaysApply: true
+---
+
+Arabic-first, `dir="rtl"`. Logical CSS/Tailwind only (`ps-`, `pe-`, `ms-`, `me-`, `start-`, `end-`). Never `pl-`/`pr-`/`ml-`/`mr-`/`left-`/`right-`.
+
+Semantic tokens only. No hex, `rgb()`, raw font names, or `--brand-*` in components, pages, or layouts. Palette lives in `src/styles/tokens.css`. Missing value → add a token.
+
+Features never cross-import. Shared code: `src/components`, `src/lib`, `src/schemas`.
+
+Pages → hooks → `src/api` → mock/real. Components never fetch.
+
+Named exports only; default exports for route pages only.
+
+Every AI output has `reason`, `evidenceIds`, and `certainty`. Never present AI output as a verdict.
+
+Fictional data only. Update `docs/PROGRESS.md` only when the user says the session is done: status table, dated log, `npm run test:run` result, suggested conventional commit. Do not commit unless asked.
