@@ -1,0 +1,70 @@
+/*
+  ============================================================================
+  PROVISIONAL RAW PALETTE — THE ONLY PLACE A RAW COLOUR MAY APPEAR.
+  THESE VALUES ARE PROVISIONAL. WHEN SUMAYA DELIVERS THE FINAL IDENTITY,
+  REPLACE THIS BLOCK (AND THE SEMANTIC MAPPING IN @theme BELOW).
+  NO COMPONENT, PAGE, OR LAYOUT MAY USE A HEX, rgb(), A RAW FONT NAME,
+  OR A --brand-* TOKEN. COMPONENTS USE SEMANTIC TOKENS ONLY.
+  ============================================================================
+*/
+
+:root {
+  --brand-deep-petroleum: #0f3a3f;
+  --brand-graphite: #1c2128;
+  --brand-ivory: #f8f7f3;
+  --brand-bronze: #a56a2b;
+  --brand-steel-blue: #567387;
+  --brand-mist-gray: #d9e0e4;
+
+  /* Invented until design handoff — contradiction / gap / danger have no brand colour yet. */
+  --brand-signal-crimson: #8f3a3a;
+  --brand-signal-sand: #c4a36a;
+
+  --brand-font-arabic: 'IBM Plex Sans Arabic', sans-serif;
+  --brand-font-latin: 'Space Grotesk', sans-serif;
+}
+
+@theme {
+  --font-arabic: var(--brand-font-arabic);
+  --font-latin: var(--brand-font-latin);
+
+  --color-surface: var(--brand-graphite);
+  --color-surface-raised: var(--brand-deep-petroleum);
+  --color-surface-overlay: var(--brand-deep-petroleum);
+
+  --color-text: var(--brand-ivory);
+  --color-text-muted: var(--brand-steel-blue);
+  --color-text-inverse: var(--brand-graphite);
+
+  --color-border: var(--brand-mist-gray);
+  --color-border-strong: var(--brand-ivory);
+
+  --color-accent: var(--brand-bronze);
+  --color-accent-hover: color-mix(in srgb, var(--brand-bronze) 82%, var(--brand-ivory));
+  --color-accent-text: var(--brand-ivory);
+
+  --color-fact: var(--brand-ivory);
+  --color-evidence: var(--brand-bronze);
+  --color-inference: var(--brand-steel-blue);
+  --color-uncertain: var(--brand-mist-gray);
+
+  --color-contradiction: var(--brand-signal-crimson);
+  --color-gap: var(--brand-signal-sand);
+  --color-danger: var(--brand-signal-crimson);
+
+  --spacing-page: 1.5rem;
+  --spacing-section: 2rem;
+  --spacing-stack: 0.75rem;
+  --spacing-inline: 1rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 9999px;
+
+  --text-caption: 0.75rem;
+  --text-body: 0.875rem;
+  --text-subtitle: 1rem;
+  --text-title: 1.25rem;
+  --text-display: 1.5rem;
+}
