@@ -7,7 +7,6 @@ describe('mock API switch', () => {
 
     const cases = await api.listCases()
 
-    expect(cases).toHaveLength(1)
-    expect(cases[0]?.caseNumber).toBe('23-4587')
+    expect(cases.map((item) => item.caseNumber)).toContain('23-4587')
   })
 })

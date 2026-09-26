@@ -1,11 +1,13 @@
 import type { Certainty } from '@/schemas'
+import type { TranslationKey } from '@/i18n/translate'
+import { useT } from '@/app/LanguageProvider'
 import { cn } from '@/lib/cn'
 
-const labels: Record<Certainty, string> = {
-  fact: 'حقيقة',
-  evidence: 'دليل',
-  inference: 'استدلال',
-  uncertain: 'غير مؤكد',
+const labelKey: Record<Certainty, TranslationKey> = {
+  fact: 'common.certaintyFact',
+  evidence: 'common.certaintyEvidence',
+  inference: 'common.certaintyInference',
+  uncertain: 'common.certaintyUncertain',
 }
 
 const toneClass: Record<Certainty, string> = {
@@ -21,6 +23,7 @@ type CertaintyBadgeProps = {
 }
 
 export function CertaintyBadge({ certainty, className }: CertaintyBadgeProps) {
+  const { t } = useT()
   return (
     <span
       className={cn(
@@ -29,7 +32,7 @@ export function CertaintyBadge({ certainty, className }: CertaintyBadgeProps) {
         className,
       )}
     >
-      {labels[certainty]}
+      {t(labelKey[certainty])}
     </span>
   )
 }

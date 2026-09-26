@@ -3,9 +3,13 @@ import type { RouteObject } from 'react-router-dom'
 import { CaseLayout } from '@/app/layouts/CaseLayout'
 import { RootLayout } from '@/app/layouts/RootLayout'
 import NotFoundPage from '@/app/pages/NotFoundPage'
+import ReportsPage from '@/app/pages/ReportsPage'
+import SettingsPage from '@/app/pages/SettingsPage'
+import AnalysisPage from '@/features/analysis/pages/AnalysisPage'
 import ActivityLogPage from '@/features/audit/pages/ActivityLogPage'
 import CaseFilePage from '@/features/cases/pages/CaseFilePage'
 import CasesListPage from '@/features/cases/pages/CasesListPage'
+import CreateCasePage from '@/features/cases/pages/CreateCasePage'
 import DashboardPage from '@/features/dashboard/pages/DashboardPage'
 import EvidenceDetailPage from '@/features/evidence/pages/EvidenceDetailPage'
 import EvidenceListPage from '@/features/evidence/pages/EvidenceListPage'
@@ -16,11 +20,17 @@ import TimelinePage from '@/features/timeline/pages/TimelinePage'
 
 export const appRoutes: RouteObject[] = [
   {
+    path: '/cases/new',
+    element: <CreateCasePage />,
+  },
+  {
     path: '/',
     element: <RootLayout />,
     children: [
       { index: true, element: <DashboardPage /> },
       { path: 'cases', element: <CasesListPage /> },
+      { path: 'reports', element: <ReportsPage /> },
+      { path: 'settings', element: <SettingsPage /> },
       {
         path: 'cases/:caseId',
         element: <CaseLayout />,
@@ -30,6 +40,7 @@ export const appRoutes: RouteObject[] = [
           { path: 'evidence/:evidenceId', element: <EvidenceDetailPage /> },
           { path: 'network', element: <NetworkPage /> },
           { path: 'timeline', element: <TimelinePage /> },
+          { path: 'analysis', element: <AnalysisPage /> },
           { path: 'scene', element: <ScenePage /> },
           { path: 'room', element: <InvestigationRoomPage /> },
           { path: 'log', element: <ActivityLogPage /> },

@@ -1,1 +1,1 @@
-export type { Case } from '@/schemas'
+export type { Dashboard, DashboardCase, DashboardAlert } from '@/schemas'

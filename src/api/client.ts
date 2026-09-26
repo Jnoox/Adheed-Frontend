@@ -3,6 +3,7 @@ import {
   auditEntryListSchema,
   caseListSchema,
   caseSchema,
+  dashboardSchema,
   contradictionListSchema,
   evidenceListSchema,
   evidenceSchema,
@@ -10,6 +11,7 @@ import {
   personListSchema,
   placeListSchema,
   relationListSchema,
+  sequenceListSchema,
   suggestionListSchema,
   timeEventListSchema,
 } from '@/schemas'
@@ -48,14 +50,30 @@ export async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const realApi: AdheedApi = {
+  getDashboard: async () =>
+    dashboardSchema.parse(await request(endpoints.dashboard)),
   listCases: async () => caseListSchema.parse(await request(endpoints.cases)),
   getCase: async (caseId) =>
     caseSchema.parse(await request(endpoints.case(caseId))),
+  createCase: async (input) =>
+    caseSchema.parse(
+      await request(endpoints.cases, {
+        method: 'POST',
+        body: JSON.stringify(input),
+      }),
+    ),
   listEvidence: async (caseId) =>
     evidenceListSchema.parse(await request(endpoints.evidence(caseId))),
   getEvidence: async (caseId, evidenceId) =>
     evidenceSchema.parse(
       await request(endpoints.evidenceItem(caseId, evidenceId)),
+    ),
+  createEvidence: async (caseId, input) =>
+    evidenceSchema.parse(
+      await request(endpoints.evidence(caseId), {
+        method: 'POST',
+        body: JSON.stringify(input),
+      }),
     ),
   listPeople: async (caseId) =>
     personListSchema.parse(await request(endpoints.people(caseId))),
@@ -67,6 +85,8 @@ export const realApi: AdheedApi = {
     relationListSchema.parse(await request(endpoints.relations(caseId))),
   listSuggestions: async (caseId) =>
     suggestionListSchema.parse(await request(endpoints.suggestions(caseId))),
+  listSequences: async (caseId) =>
+    sequenceListSchema.parse(await request(endpoints.sequences(caseId))),
   listContradictions: async (caseId) =>
     contradictionListSchema.parse(
       await request(endpoints.contradictions(caseId)),

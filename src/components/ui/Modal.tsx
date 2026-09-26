@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { useEffect } from 'react'
+import { useT } from '@/app/LanguageProvider'
 import { cn } from '@/lib/cn'
 import { Button } from './Button'
 
@@ -12,6 +13,7 @@ type ModalProps = {
 }
 
 export function Modal({ open, title, onClose, children, className }: ModalProps) {
+  const { t } = useT()
   useEffect(() => {
     if (!open) {
       return
@@ -36,7 +38,7 @@ export function Modal({ open, title, onClose, children, className }: ModalProps)
       <button
         type="button"
         className="absolute inset-0 bg-surface/80"
-        aria-label="إغلاق"
+        aria-label={t('common.close')}
         onClick={onClose}
       />
       <div
@@ -53,7 +55,7 @@ export function Modal({ open, title, onClose, children, className }: ModalProps)
             {title}
           </h2>
           <Button variant="ghost" size="sm" onClick={onClose}>
-            إغلاق
+            {t('common.close')}
           </Button>
         </div>
         {children}

@@ -1,5 +1,7 @@
 import { PlaceholderPage } from '@/components/layout/PlaceholderPage'
+import { useT } from '@/app/LanguageProvider'
 
 export default function CasesListPage() {
-  return <PlaceholderPage title="القضايا" pbi="PBI001" />
+  const { t } = useT()
+  return <PlaceholderPage title={t('cases.listTitle')} pbi="PBI001" />
 }

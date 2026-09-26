@@ -1,4 +1,5 @@
 import { cn } from '@/lib/cn'
+import { useT } from '@/app/LanguageProvider'
 
 type SpinnerSize = 'sm' | 'md' | 'lg'
 
@@ -14,15 +15,13 @@ const sizeClass: Record<SpinnerSize, string> = {
   lg: 'size-8 border-2',
 }
 
-export function Spinner({
-  size = 'md',
-  className,
-  label = 'جاري التحميل',
-}: SpinnerProps) {
+export function Spinner({ size = 'md', className, label }: SpinnerProps) {
+  const { t } = useT()
+  const text = label ?? t('common.loading')
   return (
     <span
       role="status"
-      aria-label={label}
+      aria-label={text}
       className={cn(
         'inline-block animate-spin rounded-full border-border border-s-accent',
         sizeClass[size],

@@ -43,7 +43,7 @@ Routes and PBI ids stay in `src/app/router.tsx`. Arabic UI copy. Latin case numb
 
 ## Testing
 
-Vitest + Testing Library. Test schemas, the mock switch, route placeholders, and `CertaintyBadge`. Do not test provisional styling or trivial layout.
+Vitest + Testing Library. Test schemas, the mock switch, route placeholders, semantic token presence, and `CertaintyBadge`. Do not test visual styling or trivial layout.
 
 ```
 npm run test        # watch

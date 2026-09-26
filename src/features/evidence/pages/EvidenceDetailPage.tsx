@@ -1,5 +1,7 @@
 import { PlaceholderPage } from '@/components/layout/PlaceholderPage'
+import { useT } from '@/app/LanguageProvider'
 
 export default function EvidenceDetailPage() {
-  return <PlaceholderPage title="تفاصيل الدليل" pbi="PBI005" />
+  const { t } = useT()
+  return <PlaceholderPage title={t('evidence.detailTitle')} pbi="PBI005" />
 }
