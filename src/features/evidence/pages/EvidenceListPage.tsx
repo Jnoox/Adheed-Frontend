@@ -1,5 +1,151 @@
-import { PlaceholderPage } from '@/components/layout/PlaceholderPage'
+import { useMemo, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useT } from '@/app/LanguageProvider'
+import { Button } from '@/components/ui/Button'
+import { EmptyState } from '@/components/ui/EmptyState'
+import { ErrorState } from '@/components/ui/ErrorState'
+import { Select } from '@/components/ui/Select'
+import { Spinner } from '@/components/ui/Spinner'
+import { TextField } from '@/components/ui/TextField'
+import { AddEvidenceModal } from '@/components/evidence/AddEvidenceModal'
+import {
+  evidenceShortKey,
+  evidenceTypeKey,
+  evidenceTypeValues,
+} from '@/components/evidence/type-options'
+import { EvidenceRow } from '@/features/evidence/components/EvidenceRow'
+import {
+  countEvidenceFilters,
+  evidenceFilterIds,
+  evidenceFilterKey,
+  evidenceMatchesFilter,
+  evidenceMatchesQuery,
+  sortEvidence,
+  type EvidenceFilterId,
+  type EvidenceLabelSet,
+  type EvidenceSort,
+} from '@/features/evidence/evidence-list'
+import {
+  useEvidence,
+  useEvidenceCase,
+} from '@/features/evidence/hooks/useEvidence'
+import { cn } from '@/lib/cn'
 
 export default function EvidenceListPage() {
-  return <PlaceholderPage title="الأدلة" pbi="PBI006" />
+  const { caseId = '' } = useParams()
+  const evidenceQuery = useEvidence(caseId)
+  const caseQuery = useEvidenceCase(caseId)
+  const [filter, setFilter] = useState<EvidenceFilterId>('all')
+  const [query, setQuery] = useState('')
+  const [sort, setSort] = useState<EvidenceSort>('date')
+  const [adding, setAdding] = useState(false)
+  const { t, language } = useT()
+  const short = Object.fromEntries(
+    evidenceTypeValues.map((type) => [type, t(evidenceShortKey[type])]),
+  ) as EvidenceLabelSet
+  const option = Object.fromEntries(
+    evidenceTypeValues.map((type) => [type, t(evidenceTypeKey[type])]),
+  ) as EvidenceLabelSet
+
+  const items = evidenceQuery.data ?? []
+  const counts = countEvidenceFilters(items)
+  const visible = useMemo(() => {
+    const source = evidenceQuery.data ?? []
+    return sortEvidence(
+      source.filter(
+        (item) =>
+          evidenceMatchesFilter(item.type, filter) &&
+          evidenceMatchesQuery(item, query, { short, option }),
+      ),
+      sort,
+      short,
+      language,
+    )
+  }, [evidenceQuery.data, filter, query, sort, short, option, language])
+
+  if (evidenceQuery.isPending || caseQuery.isPending) {
+    return <Spinner />
+  }
+
+  if (evidenceQuery.isError || caseQuery.isError) {
+    return (
+      <ErrorState
+        message={t('evidence.loadError')}
+        onRetry={() => {
+          void evidenceQuery.refetch()
+          void caseQuery.refetch()
+        }}
+      />
+    )
+  }
+
+  const caseNumber = caseQuery.data.caseNumber
+
+  return (
+    <div className="flex flex-col gap-section">
+      <header className="flex items-center justify-between gap-inline rounded-lg bg-accent px-page py-3">
+        <h1 className="text-title text-text-inverse">
+          {t('evidence.listTitle', { caseNumber })}
+        </h1>
+        <Button variant="inverse" onClick={() => setAdding(true)}>
+          {t('evidence.addNew')}
+        </Button>
+      </header>
+      <div className="flex flex-wrap gap-2" role="group" aria-label={t('evidence.filterGroup')}>
+        {evidenceFilterIds.map((id) => {
+          const active = id === filter
+          return (
+            <button
+              key={id}
+              type="button"
+              aria-pressed={active}
+              onClick={() => setFilter(id)}
+              className={cn(
+                'rounded-full px-inline py-2 text-title',
+                active
+                  ? 'bg-accent text-text-inverse'
+                  : 'border border-field-border bg-field text-text-muted',
+              )}
+            >
+              {t(evidenceFilterKey[id])}{' '}
+              <span className="font-latin">({counts[id]})</span>
+            </button>
+          )
+        })}
+      </div>
+      <div className="grid grid-cols-2 gap-inline">
+        <TextField
+          name="evidence-search"
+          label={t('evidence.search')}
+          value={query}
+          placeholder={t('evidence.searchPlaceholder')}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+        <Select
+          name="evidence-sort"
+          label={t('evidence.sort')}
+          value={sort}
+          options={[
+            { value: 'date', label: t('evidence.sortDate') },
+            { value: 'type', label: t('evidence.sortType') },
+          ]}
+          onChange={(event) => setSort(event.target.value as EvidenceSort)}
+        />
+      </div>
+      {visible.length === 0 ? (
+        <EmptyState title={t('evidence.empty')} />
+      ) : (
+        <ul className="flex flex-col gap-inline">
+          {visible.map((item) => (
+            <EvidenceRow key={item.id} item={item} />
+          ))}
+        </ul>
+      )}
+      <AddEvidenceModal
+        caseId={caseId}
+        open={adding}
+        onClose={() => setAdding(false)}
+      />
+    </div>
+  )
 }

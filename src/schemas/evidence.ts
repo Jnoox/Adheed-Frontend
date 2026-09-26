@@ -34,3 +34,12 @@ export const evidenceSchema = z.object({
 export type Evidence = z.infer<typeof evidenceSchema>
 
 export const evidenceListSchema = z.array(evidenceSchema)
+
+export const createEvidenceInputSchema = z.object({
+  type: evidenceTypeSchema,
+  name: z.string().min(1),
+  description: z.string().min(1),
+  source: z.string().min(1),
+  occurredAt: z.string().min(1),
+})
+export type CreateEvidenceInput = z.infer<typeof createEvidenceInputSchema>

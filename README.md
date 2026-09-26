@@ -48,6 +48,8 @@ Frontend only. No backend is linked from this repository.
   Mock layer behind one config flag.
 - **Zod على كل استجابة.** اختلاف العقد يظهر كفشل صريح لا كواجهة صامتة.
   Schema validation so payload drift fails loudly.
+- **العربية هي الواجهة الافتراضية، والإنجليزية اختيار ثانٍ.** نصوص الواجهة في `src/i18n/`، والاختيار يُحفظ في المتصفح ويضبط `dir` و`lang` والخط. أسماء القضايا والأدلة والأشخاص تبقى عربية لأنها محتوى.
+  Arabic is the default interface, English is a second choice. Interface copy lives in `src/i18n`. The choice is stored in the browser and sets direction, language, and font. Case names, evidence, people, and descriptions stay Arabic because they are content.
 
 ## التشغيل / Getting started
 
@@ -75,6 +77,7 @@ src/
   api/           # العميل، المسارات، مفتاح المحاكاة/الإنتاج
   mocks/         # بيانات البذرة ومعالجات المحاكاة
   schemas/       # مخططات Zod والأنواع المستنتجة
+  i18n/          # نصوص الواجهة بالعربية والإنجليزية
   lib/           # أدوات مساعدة (cn، وقت، RTL)
   config/        # البيئة والأعلام
   styles/        # الرموز وCSS العام
@@ -84,10 +87,17 @@ src/
 
 | Built | Placeholder |
 | --- | --- |
-| Routing, RTL shell, design tokens, UI primitives | Dashboard (PBI026) |
-| Zod schemas and mock API switch | Cases list / create (PBI001) |
-| Seed case `23-4587` (fictional) | Case file, evidence, network, timeline, scene, room, log |
-| Tests for schemas, mock switch, routes, CertaintyBadge | All other product PBIs |
+| Routing, RTL shell, design tokens, UI primitives | Cases list |
+| Zod schemas and mock API switch | Case file view |
+| Seed case `23-4587` (fictional) | Evidence detail |
+| Dashboard | In-case search |
+| Case intake | 2D crime scene |
+| Evidence list | Reports and settings |
+| Timeline and sequence | |
+| Relationship network | |
+| Investigation room | |
+| Analysis | |
+| Activity log | |
 
 ## الفريق / Team
 

@@ -1,4 +1,5 @@
 export const endpoints = {
+  dashboard: '/dashboard',
   cases: '/cases',
   case: (caseId: string) => `/cases/${caseId}`,
   evidence: (caseId: string) => `/cases/${caseId}/evidence`,
@@ -13,4 +14,5 @@ export const endpoints = {
   gaps: (caseId: string) => `/cases/${caseId}/gaps`,
   audit: (caseId: string) => `/cases/${caseId}/audit`,
   search: (caseId: string) => `/cases/${caseId}/search`,
+  sequences: (caseId: string) => `/cases/${caseId}/sequences`,
 } as const

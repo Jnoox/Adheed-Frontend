@@ -1,4 +1,5 @@
 import { cn } from '@/lib/cn'
+import { useT } from '@/app/LanguageProvider'
 import { Button } from './Button'
 
 type ErrorStateProps = {
@@ -9,11 +10,12 @@ type ErrorStateProps = {
 }
 
 export function ErrorState({
-  title = 'تعذر إكمال العملية',
+  title,
   message,
   onRetry,
   className,
 }: ErrorStateProps) {
+  const { t } = useT()
   return (
     <div
       role="alert"
@@ -22,11 +24,11 @@ export function ErrorState({
         className,
       )}
     >
-      <p className="text-subtitle text-danger">{title}</p>
+      <p className="text-subtitle text-danger">{title ?? t('common.errorTitle')}</p>
       <p className="text-body text-text-muted">{message}</p>
       {onRetry ? (
         <Button variant="secondary" size="sm" onClick={onRetry}>
-          إعادة المحاولة
+          {t('common.retry')}
         </Button>
       ) : null}
     </div>

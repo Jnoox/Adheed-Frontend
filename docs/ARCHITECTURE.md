@@ -45,10 +45,12 @@ All case-scoped lists are filtered to one case. Paths:
 | GET | `/cases` | `Case[]` |
 | GET | `/cases/:caseId` | `Case` |
 | GET | `/cases/:caseId/evidence` | `Evidence[]` |
+| POST | `/cases/:caseId/evidence` | `Evidence` |
 | GET | `/cases/:caseId/evidence/:evidenceId` | `Evidence` |
 | GET | `/cases/:caseId/people` | `Person[]` |
 | GET | `/cases/:caseId/places` | `Place[]` |
 | GET | `/cases/:caseId/events` | `TimeEvent[]` |
+| GET | `/cases/:caseId/sequences` | `Sequence[]` |
 | GET | `/cases/:caseId/relations` | `Relation[]` |
 | GET | `/cases/:caseId/suggestions` | `Suggestion[]` |
 | GET | `/cases/:caseId/contradictions` | `Contradiction[]` |
@@ -64,8 +66,8 @@ Seed case: jewellery-store theft, number `23-4587`, id `case-234587`. Fictional 
 
 Two layers in `src/styles/tokens.css`:
 
-1. **Raw palette** (`--brand-*`, `--brand-font-*`). Provisional. The only place a hex, `rgb()`, or raw font name may appear.
-2. **Semantic tokens** in `@theme` (`--color-surface`, `--color-text`, `--color-accent`, certainty colours including `--color-fact`, alerts, spacing, radius, type). Components use these names as Tailwind utilities.
+1. **Raw palette** (`--brand-*`, `--brand-font-*`). Sumaya's delivered light identity. The only place a hex, `rgb()`, or raw font name may appear.
+2. **Semantic tokens** in `@theme` (`--color-surface`, `--color-text`, `--color-accent`, certainty colours including `--color-fact`, alerts, spacing, radius, type). Components use these names as Tailwind utilities. The light page/panel mapping lives here — components were not rewritten to swap the theme.
 
 Components never reference `--brand-*`.
 
@@ -103,19 +105,26 @@ person.role
   note: suspect is an investigator-assigned role (مشتبه به), not an AI conclusion.
 
 case.status
-  values: open | under_investigation | closed
-  used on: Case
-  note: invented. CSV only says "case status is clearly visible".
+  values: active | suspended | closed
+  labels: نشطة | معلقة | مغلقة
+  used on: Case, the create-case segmented control, and the dashboard status pill
+  note: the create screen uses these three. Confirm with the backend. active was previously split into open and under_investigation.
 
 evidence.status
   values: logged | under_review | analysed
-  used on: Evidence
-  note: invented. CSV only says "the status of each evidence item is clearly shown".
+  labels: معلق | بانتظار المراجعة | مؤكد
+  used on: Evidence and the evidence status pill
+  note: invented. CSV only says "the status of each evidence item is clearly shown". logged and under_review render with a dashed row border.
 
 evidence.type
   values: photo | video | cctv | forensic_report | medical_report | witness_statement | suspect_statement | digital | other
   used on: Evidence
   note: slugified from the PBI004 type list. Confirm the codes.
+
+sequence
+  values: ordered steps with certainty, reason, and evidenceIds; matchPercent 0–100
+  used on: the timeline screen
+  note: a suggested ordering, not a finding. The investigator notice always renders. fact and evidence share the confirmed green treatment; inference is amber; uncertain is the red dashed gap.
 
 timeEvent.timePrecision
   values: exact | approximate | unknown

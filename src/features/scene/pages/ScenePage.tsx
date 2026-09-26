@@ -1,5 +1,7 @@
 import { PlaceholderPage } from '@/components/layout/PlaceholderPage'
+import { useT } from '@/app/LanguageProvider'
 
 export default function ScenePage() {
-  return <PlaceholderPage title="مسرح الجريمة" pbi="PBI016" />
+  const { t } = useT()
+  return <PlaceholderPage title={t('nav.scene')} pbi="PBI016" />
 }

@@ -1,18 +1,22 @@
 import { NavLink, Outlet, useParams } from 'react-router-dom'
+import { useT } from '@/app/LanguageProvider'
+import type { TranslationKey } from '@/i18n/translate'
 import { cn } from '@/lib/cn'
 
-const tabs = [
-  { to: '', label: 'ملف القضية' },
-  { to: 'evidence', label: 'الأدلة' },
-  { to: 'network', label: 'الشبكة' },
-  { to: 'timeline', label: 'الخط الزمني' },
-  { to: 'scene', label: 'مسرح الجريمة' },
-  { to: 'room', label: 'غرفة التحقيق' },
-  { to: 'log', label: 'السجل' },
+const tabs: Array<{ to: string; labelKey: TranslationKey }> = [
+  { to: '', labelKey: 'nav.caseFile' },
+  { to: 'evidence', labelKey: 'nav.evidence' },
+  { to: 'network', labelKey: 'nav.network' },
+  { to: 'timeline', labelKey: 'nav.timeline' },
+  { to: 'analysis', labelKey: 'nav.analysis' },
+  { to: 'scene', labelKey: 'nav.scene' },
+  { to: 'room', labelKey: 'nav.room' },
+  { to: 'log', labelKey: 'nav.log' },
 ]
 
 export function CaseLayout() {
   const { caseId } = useParams()
+  const { t } = useT()
   const base = `/cases/${caseId ?? ''}`
 
   return (
@@ -32,7 +36,7 @@ export function CaseLayout() {
               )
             }
           >
-            {tab.label}
+            {t(tab.labelKey)}
           </NavLink>
         ))}
       </nav>

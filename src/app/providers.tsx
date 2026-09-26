@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { ReactNode } from 'react'
+import { LanguageProvider } from '@/app/LanguageProvider'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,6 +17,8 @@ type AppProvidersProps = {
 
 export function AppProviders({ children }: AppProvidersProps) {
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <LanguageProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </LanguageProvider>
   )
 }

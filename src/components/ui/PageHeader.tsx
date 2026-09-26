@@ -22,7 +22,7 @@ export function PageHeader({
       )}
     >
       <div className="flex flex-col gap-2">
-        <h1 className="text-display">{title}</h1>
+        <h1 className="text-title font-semibold">{title}</h1>
         {description ? (
           <p className="text-body text-text-muted">{description}</p>
         ) : null}
