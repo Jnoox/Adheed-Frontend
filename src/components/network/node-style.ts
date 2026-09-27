@@ -1,14 +1,14 @@
 import type { NetworkKind } from '@/components/network/graph'
 
 export const kindClass: Record<NetworkKind, string> = {
-  suspect: 'rounded-full bg-accent text-text-inverse',
+  suspect: 'rounded-full bg-accent text-accent-text',
   witness: 'rounded-full border-2 border-confirmed bg-surface-raised text-text',
-  victim: 'rounded-full border-2 border-accent bg-surface-raised text-accent',
+  victim: 'rounded-full border-2 border-accent bg-surface-raised text-text',
   officer: 'rounded-full border-2 border-border-strong bg-surface-tint text-text',
   person_of_interest:
     'rounded-full border-2 border-inference bg-surface-raised text-text',
   evidence: 'rounded-lg border-2 border-warning-border bg-warning-surface text-text',
-  place: 'rounded-full border-2 border-dashed border-danger bg-surface-raised text-danger',
+  place: 'rounded-full border-2 border-dashed border-danger bg-surface-raised text-text',
   event: 'rounded-md border border-field-border bg-field text-text',
 }
 

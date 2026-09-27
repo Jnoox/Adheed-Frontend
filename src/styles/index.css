@@ -24,3 +24,14 @@ body {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
+
+.react-flow,
+.react-flow__renderer,
+.react-flow__viewport {
+  background-color: var(--color-surface-raised);
+}
+
+.react-flow__attribution {
+  background: var(--color-surface-tint) !important;
+  color: var(--color-text-muted) !important;
+}

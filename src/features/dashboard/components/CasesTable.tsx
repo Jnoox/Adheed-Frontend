@@ -3,7 +3,7 @@ import { useT } from '@/app/LanguageProvider'
 import { Table } from '@/components/ui/Table'
 import warningTriangle from '@/assets/warning-triangle.svg'
 import type { DashboardCase } from '@/schemas'
-import { CaseStatusPill } from './CaseStatusPill'
+import { CaseStatusPill } from '@/components/ui/CaseStatusPill'
 
 type CasesTableProps = {
   cases: DashboardCase[]

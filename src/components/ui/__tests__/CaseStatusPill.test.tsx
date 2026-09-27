@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { CaseStatusPill } from '@/features/dashboard/components/CaseStatusPill'
+import { CaseStatusPill } from '@/components/ui/CaseStatusPill'
 import type { CaseStatus } from '@/schemas'
 
 const labels: Array<[CaseStatus, string]> = [

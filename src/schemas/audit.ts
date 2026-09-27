@@ -7,7 +7,8 @@ export const auditEntrySchema = z.object({
   action: z.string().min(1),
   actor: z.string().min(1),
   occurredAt: z.string().min(1),
-  details: z.string(),
+  // Not sent by the backend yet.
+  details: z.string().optional(),
   tags: z.array(z.string().min(1)).optional(),
 })
 export type AuditEntry = z.infer<typeof auditEntrySchema>

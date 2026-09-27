@@ -36,7 +36,7 @@ export function FileField({
         aria-describedby={error ? `${fieldId}-error` : undefined}
         className={cn(
           'w-full rounded-field border border-field-border bg-field px-inline py-4 text-body text-text',
-          'file:me-3 file:rounded-md file:border-0 file:bg-accent file:px-inline file:py-2 file:text-body file:text-text-inverse',
+          'file:me-3 file:rounded-md file:border-0 file:bg-accent file:px-inline file:py-2 file:text-body file:text-accent-text',
           'focus:border-2 focus:border-accent focus:outline-none',
           'disabled:cursor-not-allowed disabled:opacity-50',
           error && 'border-danger',

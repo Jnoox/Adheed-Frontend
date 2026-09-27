@@ -8,9 +8,11 @@ export const contradictionSchema = z.object({
   reason: z.string().min(1),
   evidenceIds: z.array(idSchema).min(1),
   certainty: certaintySchema,
-  leftLabel: z.string().min(1),
-  rightLabel: z.string().min(1),
-  reviewed: z.boolean(),
+  // The two conflicting statements. Not sent by the backend yet.
+  leftLabel: z.string().min(1).optional(),
+  rightLabel: z.string().min(1).optional(),
+  // Absent from the backend: nothing has been reviewed until an investigator acts.
+  reviewed: z.boolean().default(false),
 })
 export type Contradiction = z.infer<typeof contradictionSchema>
 

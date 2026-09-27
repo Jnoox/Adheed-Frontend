@@ -6,8 +6,9 @@ export const placeSchema = z.object({
   caseId: idSchema,
   name: z.string().min(1),
   address: z.string(),
-  x: z.number(),
-  y: z.number(),
+  // 2D scene coordinates. The scene is not built and the backend does not send them.
+  x: z.number().optional(),
+  y: z.number().optional(),
 })
 export type Place = z.infer<typeof placeSchema>
 

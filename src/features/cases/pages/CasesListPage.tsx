@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
 import { Button } from '@/components/ui/Button'
+import { CaseStatusPill } from '@/components/ui/CaseStatusPill'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { Spinner } from '@/components/ui/Spinner'
 import { Table } from '@/components/ui/Table'
-import { CaseStatusPill } from '@/features/dashboard/components/CaseStatusPill'
 import { useCases } from '../hooks/useCases'
 
 export default function CasesListPage() {
@@ -19,7 +19,7 @@ export default function CasesListPage() {
   if (cases.isError) {
     return (
       <ErrorState
-        message={t('dashboard.loadError')}
+        message={t('cases.loadError')}
         onRetry={() => void cases.refetch()}
       />
     )
@@ -28,10 +28,8 @@ export default function CasesListPage() {
   return (
     <div className="flex flex-col gap-section">
       <div className="flex flex-wrap items-center justify-between gap-inline">
-        <h1 className="text-body">{t('cases.listTitle')}</h1>
-        <Button onClick={() => navigate('/cases/new')}>
-          {t('dashboard.createCase')}
-        </Button>
+        <h1 className="text-title text-text">{t('cases.listTitle')}</h1>
+        <Button onClick={() => navigate('/cases/new')}>{t('cases.create')}</Button>
       </div>
 
       <Table
@@ -43,22 +41,22 @@ export default function CasesListPage() {
         columns={[
           {
             key: 'number',
-            header: t('dashboard.colNumber'),
+            header: t('cases.colNumber'),
             render: (row) => <span className="font-latin">{row.caseNumber}</span>,
           },
           {
             key: 'type',
-            header: t('dashboard.colType'),
+            header: t('cases.colType'),
             render: (row) => row.caseType,
           },
           {
             key: 'status',
-            header: t('dashboard.colStatus'),
+            header: t('cases.colStatus'),
             render: (row) => <CaseStatusPill status={row.status} />,
           },
           {
             key: 'location',
-            header: 'Location',
+            header: t('cases.colLocation'),
             render: (row) => row.location,
           },
         ]}
