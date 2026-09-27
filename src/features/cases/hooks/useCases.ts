@@ -7,3 +7,12 @@ export function useCases() {
     queryFn: () => api.listCases(),
   })
 }
+
+export function useCaseAlertCounts() {
+  return useQuery({
+    queryKey: ['dashboard'],
+    queryFn: () => api.getDashboard(),
+    select: (dashboard) =>
+      Object.fromEntries(dashboard.cases.map((item) => [item.id, item.alertCount])),
+  })
+}

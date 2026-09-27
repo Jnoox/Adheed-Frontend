@@ -9,17 +9,19 @@
 
 :root {
   /*
-    APPROXIMATE HEXES — confirm with Sumaya before treating as final.
-    Do not copy these values into components. Remap @theme only.
+    SAMPLED from frames 8:1295, 8:1362, 8:1115, 8:1484 (and the dialog on
+    8:2224). Flat fills only — antialiased edge pixels were discarded.
+    Red does not appear in those frames; it stays the previous value.
   */
-  --brand-deep-petroleum: #0d2b2e;
-  --brand-panel: #123b3e;
-  --brand-panel-raised: #1b5052;
-  --brand-bronze: #c8801f;
-  --brand-ivory: #f5f3ee;
-  --brand-muted: #8fa5a6;
-  --brand-border: #1e4b4e;
-  --brand-green: #2f7d5f;
+  --brand-deep-petroleum: #1b2129;
+  --brand-panel: #22272f;
+  --brand-panel-raised: #2a3037;
+  --brand-sidebar: #003b40;
+  --brand-bronze: #b36812;
+  --brand-ivory: #ffffff;
+  --brand-muted: #83858a;
+  --brand-border: #2d3139;
+  --brand-green: #234437;
   --brand-red: #c4453c;
 
   --brand-font-arabic: 'IBM Plex Sans Arabic', sans-serif;
@@ -32,8 +34,8 @@
 
   --color-surface: var(--brand-deep-petroleum);
   --color-surface-raised: var(--brand-panel);
-  --color-surface-overlay: var(--brand-panel-raised);
-  --color-surface-inverse: var(--brand-panel-raised);
+  --color-surface-overlay: var(--brand-sidebar);
+  --color-surface-inverse: var(--brand-sidebar);
   --color-surface-alt: color-mix(
     in srgb,
     var(--brand-panel-raised) 55%,
@@ -52,7 +54,7 @@
 
   --color-accent: var(--brand-bronze);
   --color-accent-hover: color-mix(in srgb, var(--brand-bronze) 82%, var(--brand-ivory));
-  --color-accent-text: var(--brand-deep-petroleum);
+  --color-accent-text: var(--brand-ivory);
 
   --color-fact: var(--brand-green);
   --color-evidence: var(--brand-green);
@@ -65,9 +67,9 @@
   --color-danger-surface: color-mix(in srgb, var(--brand-red) 22%, var(--brand-panel));
   --color-danger-pill: color-mix(in srgb, var(--brand-red) 50%, transparent);
 
-  --color-confirmed: var(--brand-green);
-  --color-confirmed-border: color-mix(in srgb, var(--brand-green) 75%, var(--brand-ivory));
-  --color-confirmed-surface: color-mix(in srgb, var(--brand-green) 22%, var(--brand-panel));
+  --color-confirmed: color-mix(in srgb, var(--brand-green) 40%, var(--brand-ivory));
+  --color-confirmed-border: color-mix(in srgb, var(--brand-green) 55%, var(--brand-ivory));
+  --color-confirmed-surface: var(--brand-green);
   --color-confirmed-pill: color-mix(in srgb, var(--brand-green) 50%, transparent);
 
   --color-warning: var(--brand-bronze);

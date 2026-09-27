@@ -13,7 +13,6 @@ function renderPath(path: string) {
 }
 
 const placeholders: Array<[string, string, string]> = [
-  ['/cases/case-234587/evidence/ev-photo-01', 'تفاصيل الدليل', 'PBI005'],
   ['/cases/case-234587/scene', 'مسرح الجريمة', 'PBI016'],
   ['/missing-route', 'الصفحة غير موجودة', '—'],
 ]
@@ -35,7 +34,10 @@ describe('router case pages', () => {
     expect(
       await screen.findByRole('heading', { level: 1, name: 'القضايا' }),
     ).toBeInTheDocument()
-    expect(await screen.findByRole('cell', { name: '23-4587' })).toBeInTheDocument()
+    expect(await screen.findByRole('link', { name: /23-4587/ })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'نشطة' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'تحتاج مراجعة' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'مغلقة' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '+ إنشاء قضية جديدة' })).toBeInTheDocument()
     expect(screen.queryByText('لم يُبنَ بعد')).not.toBeInTheDocument()
   })

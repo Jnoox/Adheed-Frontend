@@ -107,4 +107,13 @@ describe('network screen', () => {
     expect(document.querySelector('[data-edge-id="rel-01"]')).toBeNull()
     expect(screen.getByRole('button', { name: 'فهد القحطاني' })).toBeInTheDocument()
   })
+
+  it('keeps an accept decision in the session and says it was not saved', async () => {
+    renderNetwork()
+    const accept = await screen.findAllByRole('button', { name: 'قبول' })
+    fireEvent.click(accept[0]!)
+
+    expect(screen.getByText(/لن يُحفظ هذا الاختيار بعد إعادة التحميل/)).toBeInTheDocument()
+    expect(screen.queryByText(/تم الحفظ/)).not.toBeInTheDocument()
+  })
 })
