@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
 import { Button } from '@/components/ui/Button'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { Select } from '@/components/ui/Select'
 import { Spinner } from '@/components/ui/Spinner'
+import { Table } from '@/components/ui/Table'
 import { TextField } from '@/components/ui/TextField'
 import { AddEvidenceModal } from '@/components/evidence/AddEvidenceModal'
 import {
@@ -13,7 +14,7 @@ import {
   evidenceTypeKey,
   evidenceTypeValues,
 } from '@/components/evidence/type-options'
-import { EvidenceRow } from '@/features/evidence/components/EvidenceRow'
+import { EvidenceStatusPill } from '@/features/evidence/components/EvidenceStatusPill'
 import {
   countEvidenceFilters,
   evidenceFilterIds,
@@ -33,6 +34,7 @@ import { cn } from '@/lib/cn'
 
 export default function EvidenceListPage() {
   const { caseId = '' } = useParams()
+  const navigate = useNavigate()
   const evidenceQuery = useEvidence(caseId)
   const caseQuery = useEvidenceCase(caseId)
   const [filter, setFilter] = useState<EvidenceFilterId>('all')
@@ -83,13 +85,11 @@ export default function EvidenceListPage() {
 
   return (
     <div className="flex flex-col gap-section">
-      <header className="flex items-center justify-between gap-inline rounded-lg bg-accent px-page py-3">
-        <h1 className="text-title text-text-inverse">
+      <header className="flex flex-wrap items-center justify-between gap-inline">
+        <h1 className="text-title text-text">
           {t('evidence.listTitle', { caseNumber })}
         </h1>
-        <Button variant="inverse" onClick={() => setAdding(true)}>
-          {t('evidence.addNew')}
-        </Button>
+        <Button onClick={() => setAdding(true)}>{t('evidence.addNew')}</Button>
       </header>
       <div className="flex flex-wrap gap-2" role="group" aria-label={t('evidence.filterGroup')}>
         {evidenceFilterIds.map((id) => {
@@ -135,11 +135,39 @@ export default function EvidenceListPage() {
       {visible.length === 0 ? (
         <EmptyState title={t('evidence.empty')} />
       ) : (
-        <ul className="flex flex-col gap-inline">
-          {visible.map((item) => (
-            <EvidenceRow key={item.id} item={item} />
-          ))}
-        </ul>
+        <Table
+          striped
+          className="overflow-hidden rounded-md border border-border"
+          rows={visible}
+          getRowKey={(row) => row.id}
+          onRowClick={(row) => navigate(`/cases/${caseId}/evidence/${row.id}`)}
+          columns={[
+            {
+              key: 'name',
+              header: t('evidence.colName'),
+              render: (row) => row.name,
+            },
+            {
+              key: 'case',
+              header: t('evidence.colCase'),
+              render: () => <span className="font-latin">{caseNumber}</span>,
+            },
+            {
+              key: 'type',
+              header: t('evidence.colType'),
+              render: (row) => (
+                <span className="inline-flex rounded-full border border-border bg-surface-tint px-3 py-1 text-caption text-text">
+                  {option[row.type]}
+                </span>
+              ),
+            },
+            {
+              key: 'status',
+              header: t('evidence.colStatus'),
+              render: (row) => <EvidenceStatusPill status={row.status} />,
+            },
+          ]}
+        />
       )}
       <AddEvidenceModal
         caseId={caseId}

@@ -1,5 +1,6 @@
 import { NavLink, Outlet, useParams } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
+import { CaseSearch } from '@/features/search/components/CaseSearch'
 import type { TranslationKey } from '@/i18n/translate'
 import { cn } from '@/lib/cn'
 
@@ -21,6 +22,7 @@ export function CaseLayout() {
 
   return (
     <div className="flex min-h-full flex-col">
+      <CaseSearch caseId={caseId ?? ''} />
       <nav className="flex flex-wrap gap-1 border-b border-border px-page py-2">
         {tabs.map((tab) => (
           <NavLink

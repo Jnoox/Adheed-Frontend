@@ -27,7 +27,7 @@ export function Sidebar() {
   const { t, toggleLanguage } = useT()
 
   return (
-    <aside className="flex w-sidebar shrink-0 flex-col gap-section border-e border-border bg-surface-raised p-inline">
+    <aside className="flex w-sidebar shrink-0 flex-col gap-section border-e border-border bg-surface-inverse p-inline">
       <div className="flex items-center gap-2 pt-2">
         <img
           src="/Adheed-logo.jpg"
@@ -41,29 +41,36 @@ export function Sidebar() {
         </p>
       </div>
       <nav className="flex flex-1 flex-col gap-1">
-        {items.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.end}
-            className={() => {
-              const isActive = item.match
-                ? item.match(pathname)
-                : item.end
-                  ? pathname === item.to
-                  : pathname === item.to || pathname.startsWith(`${item.to}/`)
+        {items.map((item) => {
+          const isActive = item.match
+            ? item.match(pathname)
+            : item.end
+              ? pathname === item.to
+              : pathname === item.to || pathname.startsWith(`${item.to}/`)
 
-              return cn(
-                'whitespace-nowrap rounded-full px-inline py-2 text-start text-title',
+          return (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={cn(
+                'flex items-center gap-2 whitespace-nowrap rounded-full px-inline py-2 text-start text-body',
                 isActive
                   ? 'bg-accent text-accent-text'
                   : 'text-text hover:bg-surface-tint',
-              )
-            }}
-          >
-            {t(item.labelKey)}
-          </NavLink>
-        ))}
+              )}
+            >
+              <span
+                aria-hidden="true"
+                className={cn(
+                  'size-2 shrink-0 rounded-full',
+                  isActive ? 'bg-accent-text' : 'bg-accent',
+                )}
+              />
+              {t(item.labelKey)}
+            </NavLink>
+          )
+        })}
       </nav>
       <div className="flex items-center gap-2 border-t border-border pt-stack">
         <button

@@ -43,8 +43,8 @@ export default function ActivityLogPage() {
 
   return (
     <div className="flex flex-col gap-section">
-      <header className="flex flex-wrap items-center justify-between gap-inline rounded-lg bg-accent px-page py-3">
-        <h1 className="text-title text-text-inverse">
+      <header className="flex flex-wrap items-center justify-between gap-inline">
+        <h1 className="text-title text-text">
           {t('log.title', { caseNumber: caseQuery.data.caseNumber })}
         </h1>
         <div className="flex gap-2">
@@ -52,14 +52,14 @@ export default function ActivityLogPage() {
             type="button"
             aria-expanded={filtersOpen}
             aria-controls="audit-filters"
-            className="rounded-lg bg-accent-hover px-inline py-2 text-subtitle text-text-inverse-muted"
+            className="rounded-full border border-border bg-surface-raised px-inline py-2 text-body text-text"
             onClick={() => setFiltersOpen((open) => !open)}
           >
             {t('log.filter')}
           </button>
           <button
             type="button"
-            className="rounded-lg bg-accent-hover px-inline py-2 text-subtitle text-text-inverse-muted"
+            className="rounded-full bg-accent px-inline py-2 text-body text-accent-text"
             onClick={() => downloadLog(entries, t)}
           >
             {t('log.export')}

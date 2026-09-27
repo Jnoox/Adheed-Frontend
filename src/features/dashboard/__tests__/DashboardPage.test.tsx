@@ -1,5 +1,5 @@
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
-import { act, render, screen, within } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { AppProviders } from '@/app/providers'
 import { appRoutes } from '@/app/router'
@@ -24,11 +24,13 @@ describe('dashboard', () => {
       </AppProviders>,
     )
 
-    expect(await screen.findByRole('cell', { name: '23-4587' })).toBeInTheDocument()
-    expect(screen.getByRole('cell', { name: '23-4521' })).toBeInTheDocument()
-    expect(screen.getByRole('cell', { name: '23-4498' })).toBeInTheDocument()
+    expect(await screen.findByRole('link', { name: /23-4587/ })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /23-4521/ })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /23-4498/ })).toBeInTheDocument()
+    expect(screen.getByText('أحدث القضايا')).toBeInTheDocument()
+    expect(screen.getByText('تنبيهات النظام')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('row', { name: /23-4587/ }))
+    await user.click(screen.getByRole('link', { name: /23-4587/ }))
 
     expect(
       await screen.findByRole('heading', { level: 1, name: 'ملف القضية 23-4587' }),
@@ -43,22 +45,18 @@ describe('dashboard', () => {
       </AppProviders>,
     )
 
-    expect(await screen.findByRole('cell', { name: '23-4587' })).toBeInTheDocument()
+    expect(await screen.findByRole('link', { name: /23-4587/ })).toBeInTheDocument()
 
-    const rowCounts = screen
-      .getAllByRole('row')
-      .filter((row) => within(row).queryAllByRole('cell').length > 0)
-      .map((row) => Number(within(row).getAllByRole('cell')[3]?.textContent))
-
-    expect(cardValue('إجمالي الأدلة')).toBe(rowCounts.reduce((sum, count) => sum + count, 0))
+    expect(cardValue('إجمالي الأدلة')).toBe(evidence.length)
     expect(cardValue('قضايا نشطة')).toBe(cases.filter((item) => item.status === 'active').length)
     expect(cardValue('تنبيهات جديدة')).toBe(dashboardAlerts.length)
     expect(cardValue('بحاجة مراجعة')).toBe(
       evidence.filter((item) => item.status !== 'analysed').length,
     )
 
-    const jewellery = screen.getByRole('row', { name: /23-4587/ })
-    const jewelleryCount = within(jewellery).getAllByRole('cell')[3]?.textContent?.trim()
+    const jewelleryCount = String(
+      evidence.filter((item) => item.caseId === 'case-234587').length,
+    )
 
     await act(async () => {
       await router.navigate('/cases/case-234587/evidence')

@@ -7,6 +7,10 @@ export function useNetwork(caseId: string) {
     queryFn: () => api.getCase(caseId),
     enabled: caseId.length > 0,
   })
+  const casesQuery = useQuery({
+    queryKey: ['cases'],
+    queryFn: () => api.listCases(),
+  })
   const peopleQuery = useQuery({
     queryKey: ['people', caseId],
     queryFn: () => api.listPeople(caseId),
@@ -34,6 +38,7 @@ export function useNetwork(caseId: string) {
   })
 
   return {
+    casesQuery,
     caseQuery,
     peopleQuery,
     evidenceQuery,

@@ -3,7 +3,7 @@ import type { RouteObject } from 'react-router-dom'
 import { CaseLayout } from '@/app/layouts/CaseLayout'
 import { RootLayout } from '@/app/layouts/RootLayout'
 import NotFoundPage from '@/app/pages/NotFoundPage'
-import ReportsPage from '@/app/pages/ReportsPage'
+import ReportPage from '@/features/reports/pages/ReportPage'
 import SettingsPage from '@/app/pages/SettingsPage'
 import AnalysisPage from '@/features/analysis/pages/AnalysisPage'
 import ActivityLogPage from '@/features/audit/pages/ActivityLogPage'
@@ -29,7 +29,7 @@ export const appRoutes: RouteObject[] = [
     children: [
       { index: true, element: <DashboardPage /> },
       { path: 'cases', element: <CasesListPage /> },
-      { path: 'reports', element: <ReportsPage /> },
+      { path: 'reports', element: <ReportPage /> },
       { path: 'settings', element: <SettingsPage /> },
       {
         path: 'cases/:caseId',
