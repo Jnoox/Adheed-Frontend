@@ -4,6 +4,7 @@ import { mockApi } from '@/mocks/handlers'
 import type { AdheedApi } from './types'
 
 export { ApiError, request } from './client'
+export { adapters, normaliseAuditAction } from './adapters'
 export { endpoints } from './endpoints'
 export type { AdheedApi } from './types'
 

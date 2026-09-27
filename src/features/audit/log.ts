@@ -109,7 +109,8 @@ export function presentEntry(
 ): LogEntryView {
   const view = actions[entry.action]
   const chip = view?.chip ?? 'complete'
-  const detail = view?.strip ? strip(entry.details) : entry.details
+  const details = entry.details?.trim() ?? ''
+  const detail = view?.strip ? strip(details) : details
   return {
     category: view?.category ?? 'case',
     chip: {
@@ -117,12 +118,14 @@ export function presentEntry(
       chipClass: chipClass[chip],
       dotClass: dotClass[chip],
     },
-    title: view ? t(view.titleKey) : entry.action,
-    description: t(view?.verbKey ?? 'log.verbFallback', {
-      actor: entry.actor,
-      detail,
-    }),
-    tags: entry.tags ?? [],
+    // An action the log does not know still gets a readable label, and the raw
+    // code is kept as a tag so nothing is hidden.
+    title: view ? t(view.titleKey) : t('log.unknownAction'),
+    description:
+      detail === ''
+        ? t('log.byActor', { actor: entry.actor })
+        : t(view?.verbKey ?? 'log.verbFallback', { actor: entry.actor, detail }),
+    tags: view ? (entry.tags ?? []) : [...(entry.tags ?? []), entry.action],
   }
 }
 

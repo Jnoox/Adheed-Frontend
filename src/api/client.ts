@@ -15,6 +15,7 @@ import {
   suggestionListSchema,
   timeEventListSchema,
 } from '@/schemas'
+import { adapters } from './adapters'
 import { endpoints } from './endpoints'
 import type { AdheedApi } from './types'
 
@@ -49,50 +50,73 @@ export async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return body as T
 }
 
+// Every real response goes raw → adapter (rename backend field names) → Zod.
+// Adapters never invent content; whatever they cannot map still fails loudly.
 export const realApi: AdheedApi = {
   getDashboard: async () =>
-    dashboardSchema.parse(await request(endpoints.dashboard)),
-  listCases: async () => caseListSchema.parse(await request(endpoints.cases)),
+    dashboardSchema.parse(adapters.dashboard(await request(endpoints.dashboard))),
+  listCases: async () =>
+    caseListSchema.parse(adapters.caseList(await request(endpoints.cases))),
   getCase: async (caseId) =>
-    caseSchema.parse(await request(endpoints.case(caseId))),
+    caseSchema.parse(adapters.case(await request(endpoints.case(caseId)))),
   createCase: async (input) =>
     caseSchema.parse(
-      await request(endpoints.cases, {
-        method: 'POST',
-        body: JSON.stringify(input),
-      }),
+      adapters.case(
+        await request(endpoints.cases, {
+          method: 'POST',
+          body: JSON.stringify(input),
+        }),
+      ),
     ),
   listEvidence: async (caseId) =>
-    evidenceListSchema.parse(await request(endpoints.evidence(caseId))),
+    evidenceListSchema.parse(
+      adapters.evidenceList(await request(endpoints.evidence(caseId))),
+    ),
   getEvidence: async (caseId, evidenceId) =>
     evidenceSchema.parse(
-      await request(endpoints.evidenceItem(caseId, evidenceId)),
+      adapters.evidence(await request(endpoints.evidenceItem(caseId, evidenceId))),
     ),
   createEvidence: async (caseId, input) =>
     evidenceSchema.parse(
-      await request(endpoints.evidence(caseId), {
-        method: 'POST',
-        body: JSON.stringify(input),
-      }),
+      adapters.evidence(
+        await request(endpoints.evidence(caseId), {
+          method: 'POST',
+          body: JSON.stringify(input),
+        }),
+      ),
     ),
   listPeople: async (caseId) =>
-    personListSchema.parse(await request(endpoints.people(caseId))),
+    personListSchema.parse(
+      adapters.personList(await request(endpoints.people(caseId))),
+    ),
   listPlaces: async (caseId) =>
-    placeListSchema.parse(await request(endpoints.places(caseId))),
+    placeListSchema.parse(
+      adapters.placeList(await request(endpoints.places(caseId))),
+    ),
   listEvents: async (caseId) =>
-    timeEventListSchema.parse(await request(endpoints.events(caseId))),
+    timeEventListSchema.parse(
+      adapters.timeEventList(await request(endpoints.events(caseId))),
+    ),
   listRelations: async (caseId) =>
-    relationListSchema.parse(await request(endpoints.relations(caseId))),
+    relationListSchema.parse(
+      adapters.relationList(await request(endpoints.relations(caseId))),
+    ),
   listSuggestions: async (caseId) =>
-    suggestionListSchema.parse(await request(endpoints.suggestions(caseId))),
+    suggestionListSchema.parse(
+      adapters.suggestionList(await request(endpoints.suggestions(caseId))),
+    ),
   listSequences: async (caseId) =>
-    sequenceListSchema.parse(await request(endpoints.sequences(caseId))),
+    sequenceListSchema.parse(
+      adapters.sequenceList(await request(endpoints.sequences(caseId))),
+    ),
   listContradictions: async (caseId) =>
     contradictionListSchema.parse(
-      await request(endpoints.contradictions(caseId)),
+      adapters.contradictionList(await request(endpoints.contradictions(caseId))),
     ),
   listGaps: async (caseId) =>
-    gapListSchema.parse(await request(endpoints.gaps(caseId))),
+    gapListSchema.parse(adapters.gapList(await request(endpoints.gaps(caseId)))),
   listAudit: async (caseId) =>
-    auditEntryListSchema.parse(await request(endpoints.audit(caseId))),
+    auditEntryListSchema.parse(
+      adapters.auditEntryList(await request(endpoints.audit(caseId))),
+    ),
 }

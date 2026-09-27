@@ -31,7 +31,7 @@ describe('dashboard', () => {
     await user.click(screen.getByRole('row', { name: /23-4587/ }))
 
     expect(
-      await screen.findByRole('heading', { name: 'ملف القضية' }),
+      await screen.findByRole('heading', { level: 1, name: 'ملف القضية 23-4587' }),
     ).toBeInTheDocument()
   })
 

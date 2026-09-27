@@ -11,9 +11,10 @@ export const timeEventSchema = z.object({
   description: z.string().min(1),
   occurredAt: z.string().nullable(),
   timePrecision: timePrecisionSchema,
-  evidenceIds: z.array(idSchema),
-  placeId: idSchema.nullable(),
-  personIds: z.array(idSchema),
+  // Links are not sent by the backend yet. Empty means "none known", never invented.
+  evidenceIds: z.array(idSchema).default([]),
+  placeId: idSchema.nullable().default(null),
+  personIds: z.array(idSchema).default([]),
 })
 export type TimeEvent = z.infer<typeof timeEventSchema>
 

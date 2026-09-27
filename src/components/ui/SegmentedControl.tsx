@@ -47,7 +47,7 @@ export function SegmentedControl<T extends string>({
                 'min-w-24 rounded-field px-inline py-4 text-subtitle font-semibold',
                 'disabled:cursor-not-allowed disabled:opacity-50',
                 selected
-                  ? 'bg-accent text-text-inverse'
+                  ? 'bg-accent text-accent-text'
                   : 'border border-field-border bg-field text-text-muted hover:border-accent',
               )}
             >

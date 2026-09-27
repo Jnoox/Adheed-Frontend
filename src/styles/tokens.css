@@ -1,29 +1,26 @@
 /*
   ============================================================================
   RAW PALETTE — THE ONLY PLACE A RAW COLOUR MAY APPEAR.
-  Delivered from Sumaya's Figma (light theme). Semantic names in @theme stay
+  Delivered from Sumaya's final identity (dark). Semantic names in @theme stay
   stable. NO COMPONENT, PAGE, OR LAYOUT MAY USE A HEX, rgb(), A RAW FONT NAME,
   OR A --brand-* TOKEN.
   ============================================================================
 */
 
 :root {
-  --brand-navy: #113765;
-  --brand-navy-deep: #0f3b70;
-  --brand-page: #edf3fb;
-  --brand-panel: #ffffff;
-  --brand-row-alt: #f9fbfd;
-  --brand-row-tint: #eff4fb;
-  --brand-amber-bg: #fff8e4;
-  --brand-amber-border: #fdcc6b;
-  --brand-amber-text: #835900;
-  --brand-amber-accent: #ce8700;
-  --brand-green-text: #008254;
-  --brand-green-border: #007c4c;
-  --brand-green-bg: rgba(228, 246, 238, 0.5);
-  --brand-red: #d1291e;
-  --brand-field: #f6f8fc;
-  --brand-field-border: #d3e2f5;
+  /*
+    APPROXIMATE HEXES — confirm with Sumaya before treating as final.
+    Do not copy these values into components. Remap @theme only.
+  */
+  --brand-deep-petroleum: #0d2b2e;
+  --brand-panel: #123b3e;
+  --brand-panel-raised: #1b5052;
+  --brand-bronze: #c8801f;
+  --brand-ivory: #f5f3ee;
+  --brand-muted: #8fa5a6;
+  --brand-border: #1e4b4e;
+  --brand-green: #2f7d5f;
+  --brand-red: #c4453c;
 
   --brand-font-arabic: 'IBM Plex Sans Arabic', sans-serif;
   --brand-font-latin: 'Space Grotesk', sans-serif;
@@ -33,50 +30,54 @@
   --font-arabic: var(--brand-font-arabic);
   --font-latin: var(--brand-font-latin);
 
-  --color-surface: var(--brand-page);
+  --color-surface: var(--brand-deep-petroleum);
   --color-surface-raised: var(--brand-panel);
-  --color-surface-overlay: var(--brand-panel);
-  --color-surface-inverse: var(--brand-navy);
-  --color-surface-alt: var(--brand-row-alt);
-  --color-surface-tint: var(--brand-row-tint);
+  --color-surface-overlay: var(--brand-panel-raised);
+  --color-surface-inverse: var(--brand-panel-raised);
+  --color-surface-alt: color-mix(
+    in srgb,
+    var(--brand-panel-raised) 55%,
+    var(--brand-deep-petroleum)
+  );
+  --color-surface-tint: var(--brand-panel-raised);
 
-  --color-text: var(--brand-navy-deep);
-  --color-text-muted: color-mix(in srgb, var(--brand-navy-deep) 50%, transparent);
-  --color-text-label: color-mix(in srgb, var(--brand-navy-deep) 75%, transparent);
-  --color-text-inverse: var(--brand-panel);
-  --color-text-inverse-muted: color-mix(in srgb, var(--brand-panel) 70%, transparent);
+  --color-text: var(--brand-ivory);
+  --color-text-muted: var(--brand-muted);
+  --color-text-label: color-mix(in srgb, var(--brand-ivory) 80%, var(--brand-muted));
+  --color-text-inverse: var(--brand-ivory);
+  --color-text-inverse-muted: color-mix(in srgb, var(--brand-ivory) 70%, transparent);
 
-  --color-border: color-mix(in srgb, var(--brand-navy-deep) 30%, transparent);
-  --color-border-strong: color-mix(in srgb, var(--brand-navy-deep) 50%, transparent);
+  --color-border: var(--brand-border);
+  --color-border-strong: color-mix(in srgb, var(--brand-ivory) 22%, var(--brand-border));
 
-  --color-accent: var(--brand-navy-deep);
-  --color-accent-hover: color-mix(in srgb, var(--brand-navy-deep) 88%, var(--brand-panel));
-  --color-accent-text: var(--brand-panel);
+  --color-accent: var(--brand-bronze);
+  --color-accent-hover: color-mix(in srgb, var(--brand-bronze) 82%, var(--brand-ivory));
+  --color-accent-text: var(--brand-deep-petroleum);
 
-  --color-fact: var(--brand-green-text);
-  --color-evidence: var(--brand-green-text);
-  --color-inference: var(--brand-amber-accent);
-  --color-uncertain: color-mix(in srgb, var(--brand-navy-deep) 50%, transparent);
+  --color-fact: var(--brand-green);
+  --color-evidence: var(--brand-green);
+  --color-inference: var(--brand-bronze);
+  --color-uncertain: var(--brand-muted);
 
   --color-contradiction: var(--brand-red);
-  --color-gap: var(--brand-amber-accent);
+  --color-gap: var(--brand-bronze);
   --color-danger: var(--brand-red);
-  --color-danger-surface: color-mix(in srgb, var(--brand-red) 20%, var(--brand-panel));
+  --color-danger-surface: color-mix(in srgb, var(--brand-red) 22%, var(--brand-panel));
   --color-danger-pill: color-mix(in srgb, var(--brand-red) 50%, transparent);
 
-  --color-confirmed: var(--brand-green-text);
-  --color-confirmed-border: var(--brand-green-border);
-  --color-confirmed-surface: var(--brand-green-bg);
-  --color-confirmed-pill: color-mix(in srgb, var(--brand-green-text) 50%, transparent);
+  --color-confirmed: var(--brand-green);
+  --color-confirmed-border: color-mix(in srgb, var(--brand-green) 75%, var(--brand-ivory));
+  --color-confirmed-surface: color-mix(in srgb, var(--brand-green) 22%, var(--brand-panel));
+  --color-confirmed-pill: color-mix(in srgb, var(--brand-green) 50%, transparent);
 
-  --color-warning: var(--brand-amber-accent);
-  --color-warning-text: var(--brand-amber-text);
-  --color-warning-border: var(--brand-amber-border);
-  --color-warning-surface: var(--brand-amber-bg);
-  --color-warning-pill: color-mix(in srgb, var(--brand-amber-accent) 50%, transparent);
+  --color-warning: var(--brand-bronze);
+  --color-warning-text: color-mix(in srgb, var(--brand-bronze) 55%, var(--brand-ivory));
+  --color-warning-border: var(--brand-bronze);
+  --color-warning-surface: color-mix(in srgb, var(--brand-bronze) 22%, var(--brand-panel));
+  --color-warning-pill: color-mix(in srgb, var(--brand-bronze) 50%, transparent);
 
-  --color-field: var(--brand-field);
-  --color-field-border: var(--brand-field-border);
+  --color-field: var(--brand-panel-raised);
+  --color-field-border: var(--brand-border);
 
   --spacing-page: 2rem;
   --spacing-section: 2rem;

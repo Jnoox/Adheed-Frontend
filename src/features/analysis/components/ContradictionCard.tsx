@@ -64,9 +64,15 @@ export function ContradictionCard({
           {t(high ? 'analysis.severityHigh' : 'analysis.severityMedium')}
         </span>
       </div>
-      <p className={cn('text-subtitle', high ? 'text-danger' : 'text-warning-text')}>
-        {contradiction.leftLabel} {t('common.while')} {contradiction.rightLabel}
-      </p>
+      {contradiction.leftLabel && contradiction.rightLabel ? (
+        <p className={cn('text-subtitle', high ? 'text-danger' : 'text-warning-text')}>
+          {contradiction.leftLabel} {t('common.while')} {contradiction.rightLabel}
+        </p>
+      ) : (
+        <p className="text-subtitle text-text-muted">
+          {t('analysis.statementsUnavailable')}
+        </p>
+      )}
       <p className={cn('text-body', high ? 'text-danger' : 'text-warning-text')}>
         {contradiction.reason}
       </p>

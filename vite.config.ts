@@ -14,5 +14,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './tests/setup.ts',
     globals: true,
+    // Tests always run against the mock layer, whatever .env.local says.
+    env: { VITE_USE_MOCKS: 'true' },
   },
 })

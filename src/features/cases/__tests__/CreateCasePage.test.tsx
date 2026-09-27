@@ -39,8 +39,9 @@ describe('create case', () => {
 
     expect(createCase).toHaveBeenCalled()
     expect(
-      await screen.findByRole('heading', { name: 'ملف القضية' }),
+      await screen.findByRole('heading', { level: 1, name: 'ملف القضية 24-1001' }),
     ).toBeInTheDocument()
+    expect(screen.getByText('نشطة')).toBeInTheDocument()
     createCase.mockRestore()
   })
 })

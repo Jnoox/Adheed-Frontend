@@ -6,12 +6,14 @@ export const gapSchema = z.object({
   caseId: idSchema,
   summary: z.string().min(1),
   reason: z.string().min(1),
-  evidenceIds: z.array(idSchema).min(1),
+  // A gap is an absence of evidence, so an empty list is a valid answer.
+  evidenceIds: z.array(idSchema),
   certainty: certaintySchema,
-  startsAt: z.string().min(1),
-  endsAt: z.string().min(1),
-  beforeEventId: idSchema,
-  afterEventId: idSchema,
+  // Time bounds are not sent by the backend yet. Optional until they land.
+  startsAt: z.string().min(1).optional(),
+  endsAt: z.string().min(1).optional(),
+  beforeEventId: idSchema.optional(),
+  afterEventId: idSchema.optional(),
 })
 export type Gap = z.infer<typeof gapSchema>
 

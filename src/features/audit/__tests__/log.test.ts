@@ -30,4 +30,17 @@ describe('audit entry chips', () => {
     expect(pending.chipClass).toContain('text-warning')
     expect(pending.dotClass).toBe('bg-warning')
   })
+
+  it('labels an unknown action instead of showing the raw code as the title', () => {
+    const view = presentEntry(entry('case.archived'))
+
+    expect(view.title).toBe('إجراء غير مصنّف')
+    expect(view.tags).toContain('case.archived')
+  })
+
+  it('describes an entry without details by its actor only', () => {
+    const view = presentEntry({ ...entry('evidence.added'), details: undefined })
+
+    expect(view.description).toBe('بواسطة محقق تجريبي')
+  })
 })
