@@ -50,9 +50,18 @@ export default function CaseFilePage() {
             <p className="text-body text-text-muted">{record.description}</p>
           ) : null}
         </div>
-        <Button variant="secondary" onClick={() => navigate('/cases')}>
-          {t('common.back')}
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            onClick={() =>
+              navigate(`/cases/${caseId}/edit`, { state: { from: `/cases/${caseId}` } })
+            }
+          >
+            {t('cases.edit')}
+          </Button>
+          <Button variant="secondary" onClick={() => navigate('/cases')}>
+            {t('common.back')}
+          </Button>
+        </div>
       </div>
 
       <dl className="grid gap-inline sm:grid-cols-2">

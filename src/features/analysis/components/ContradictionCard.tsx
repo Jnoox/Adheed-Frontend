@@ -16,6 +16,7 @@ type ContradictionCardProps = {
   severity: ContradictionSeverity
   evidenceNames: Record<string, string>
   decision: ContradictionDecision | null
+  failed: boolean
   onDecide: (decision: ContradictionDecision) => void
 }
 
@@ -25,6 +26,7 @@ export function ContradictionCard({
   severity,
   evidenceNames,
   decision,
+  failed,
   onDecide,
 }: ContradictionCardProps) {
   const high = severity === 'high'
@@ -64,15 +66,9 @@ export function ContradictionCard({
           {t(high ? 'analysis.severityHigh' : 'analysis.severityMedium')}
         </span>
       </div>
-      {contradiction.leftLabel && contradiction.rightLabel ? (
-        <p className={cn('text-subtitle', high ? 'text-danger' : 'text-warning-text')}>
-          {contradiction.leftLabel} {t('common.while')} {contradiction.rightLabel}
-        </p>
-      ) : (
-        <p className="text-subtitle text-text-muted">
-          {t('analysis.statementsUnavailable')}
-        </p>
-      )}
+      <p className={cn('text-subtitle', high ? 'text-danger' : 'text-warning-text')}>
+        {contradiction.leftLabel} {t('common.while')} {contradiction.rightLabel}
+      </p>
       <p className={cn('text-body', high ? 'text-danger' : 'text-warning-text')}>
         {contradiction.reason}
       </p>
@@ -108,6 +104,11 @@ export function ContradictionCard({
           </Button>
         </div>
       )}
+      {failed ? (
+        <p role="alert" className="text-caption text-danger">
+          {t('analysis.decisionError')}
+        </p>
+      ) : null}
     </article>
   )
 }

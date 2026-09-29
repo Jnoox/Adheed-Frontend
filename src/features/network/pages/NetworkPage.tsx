@@ -256,13 +256,7 @@ function NetworkScreen() {
                       >
                         {node.label}
                       </button>
-                      {link.reason ? (
-                        <p className="text-caption text-text">{link.reason}</p>
-                      ) : (
-                        <p className="text-caption text-text-muted">
-                          {t('network.reasonUnavailable')}
-                        </p>
-                      )}
+                      <p className="text-caption text-text">{link.reason}</p>
                       {link.evidenceIds.map((id) => (
                         <Link
                           key={id}

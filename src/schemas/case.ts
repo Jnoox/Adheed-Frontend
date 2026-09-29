@@ -32,3 +32,5 @@ export const createCaseInputSchema = z.object({
   status: caseStatusSchema,
 })
 export type CreateCaseInput = z.infer<typeof createCaseInputSchema>
+
+export type UpdateCaseInput = Omit<CreateCaseInput, 'caseNumber'>

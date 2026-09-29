@@ -8,9 +8,8 @@ export const relationSchema = z.object({
   fromId: idSchema,
   toType: entityTypeSchema,
   toId: idSchema,
-  // Not sent by the backend yet. When absent the UI says so; it never invents one.
-  reason: z.string().min(1).optional(),
-  evidenceIds: z.array(idSchema).default([]),
+  reason: z.string().min(1),
+  evidenceIds: z.array(idSchema),
 })
 export type Relation = z.infer<typeof relationSchema>
 

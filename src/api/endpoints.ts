@@ -10,7 +10,11 @@ export const endpoints = {
   events: (caseId: string) => `/cases/${caseId}/events`,
   relations: (caseId: string) => `/cases/${caseId}/relations`,
   suggestions: (caseId: string) => `/cases/${caseId}/suggestions`,
+  suggestion: (caseId: string, suggestionId: string) =>
+    `/cases/${caseId}/suggestions/${suggestionId}`,
   contradictions: (caseId: string) => `/cases/${caseId}/contradictions`,
+  contradiction: (caseId: string, contradictionId: string) =>
+    `/cases/${caseId}/contradictions/${contradictionId}`,
   gaps: (caseId: string) => `/cases/${caseId}/gaps`,
   audit: (caseId: string) => `/cases/${caseId}/audit`,
   search: (caseId: string) => `/cases/${caseId}/search`,

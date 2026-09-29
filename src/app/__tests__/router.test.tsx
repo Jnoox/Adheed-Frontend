@@ -13,7 +13,6 @@ function renderPath(path: string) {
 }
 
 const placeholders: Array<[string, string, string]> = [
-  ['/cases/case-234587/scene', 'مسرح الجريمة', 'PBI016'],
   ['/missing-route', 'الصفحة غير موجودة', '—'],
 ]
 

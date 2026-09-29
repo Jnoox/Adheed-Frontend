@@ -1,6 +1,8 @@
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
-import { fireEvent, render, screen } from '@testing-library/react'
-import { AppProviders } from '@/app/providers'
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import { afterEach, vi } from 'vitest'
+import { api } from '@/api'
+import { AppProviders, queryClient } from '@/app/providers'
 import { appRoutes } from '@/app/router'
 import { buildNetwork, countByKind } from '@/components/network/graph'
 import { networkKindText } from '@/features/network/components/NetworkFilters'
@@ -11,6 +13,7 @@ import { events } from '@/mocks/data/events'
 import { people } from '@/mocks/data/people'
 import { places } from '@/mocks/data/places'
 import { relations } from '@/mocks/data/relations'
+import { suggestions } from '@/mocks/data/suggestions'
 
 class ResizeObserverStub {
   private readonly callback: ResizeObserverCallback
@@ -72,6 +75,15 @@ function renderNetwork() {
   )
 }
 
+afterEach(async () => {
+  await waitFor(() => {
+    expect(queryClient.isMutating()).toBe(0)
+  })
+  for (const item of suggestions) item.status = 'pending'
+  queryClient.clear()
+  vi.restoreAllMocks()
+})
+
 describe('network screen', () => {
   it('fills the selected panel with the relationship count', async () => {
     renderNetwork()
@@ -108,12 +120,44 @@ describe('network screen', () => {
     expect(screen.getByRole('button', { name: 'فهد القحطاني' })).toBeInTheDocument()
   })
 
-  it('keeps an accept decision in the session and says it was not saved', async () => {
+  it('keeps an accepted suggestion after the list is loaded again', async () => {
+    renderNetwork()
+    const summary = 'قد يكون فتح الباب الخلفي مرتبطاً بتوقف السيارة في الموقف.'
+    const card = (await screen.findByText(summary)).closest('li')
+    if (!card) throw new Error('suggestion card missing')
+    fireEvent.click(within(card).getByRole('button', { name: 'قبول' }))
+
+    await waitFor(() => {
+      expect(suggestions.find((item) => item.id === 'sug-01')?.status).toBe('accepted')
+    })
+    await waitFor(() => {
+      expect(queryClient.isMutating()).toBe(0)
+      expect(queryClient.isFetching()).toBe(0)
+    })
+    expect(within(card).getByRole('status')).toHaveTextContent('مقبول')
+    expect(screen.queryByText(/لن يُحفظ/)).not.toBeInTheDocument()
+
+    queryClient.clear()
+    cleanup()
+    renderNetwork()
+
+    const again = (await screen.findByText(summary)).closest('li')
+    if (!again) throw new Error('suggestion card missing')
+    expect(within(again).getByRole('status')).toHaveTextContent('مقبول')
+    expect(within(again).queryByRole('button', { name: 'قبول' })).not.toBeInTheDocument()
+    expect(screen.getAllByRole('button', { name: 'قبول' }).length).toBe(
+      suggestions.filter((item) => item.status === 'pending').length,
+    )
+  })
+
+  it('restores a pending suggestion when the update fails', async () => {
+    vi.spyOn(api, 'updateSuggestion').mockRejectedValueOnce(new Error('fail'))
     renderNetwork()
     const accept = await screen.findAllByRole('button', { name: 'قبول' })
     fireEvent.click(accept[0]!)
 
-    expect(screen.getByText(/لن يُحفظ هذا الاختيار بعد إعادة التحميل/)).toBeInTheDocument()
-    expect(screen.queryByText(/تم الحفظ/)).not.toBeInTheDocument()
+    expect(await screen.findByRole('alert')).toHaveTextContent('تعذر حفظ القرار')
+    expect(screen.getAllByRole('button', { name: 'قبول' })).toHaveLength(suggestions.length)
+    expect(suggestions.every((item) => item.status === 'pending')).toBe(true)
   })
 })
