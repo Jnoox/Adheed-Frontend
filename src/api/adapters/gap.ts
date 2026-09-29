@@ -2,8 +2,7 @@ import { adaptList, isRecord, rename, type Adapter } from './shared'
 
 /**
  * Backend: `title` → frontend: `summary`.
- * `startsAt` / `endsAt` / `beforeEventId` / `afterEventId` are not sent yet
- * and stay absent; the schema treats them as optional.
+ * `startsAt`, `endsAt`, `beforeEventId` and `afterEventId` pass through.
  */
 export const adaptGap: Adapter = (raw) =>
   isRecord(raw) ? rename(raw, 'title', 'summary') : raw

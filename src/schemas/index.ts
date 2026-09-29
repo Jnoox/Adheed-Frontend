@@ -13,6 +13,7 @@ export {
   type Case,
   type CaseStatus,
   type CreateCaseInput,
+  type UpdateCaseInput,
 } from './case'
 export {
   createEvidenceInputSchema,

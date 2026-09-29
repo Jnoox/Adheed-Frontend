@@ -5,6 +5,7 @@ import {
   caseSchema,
   dashboardSchema,
   contradictionListSchema,
+  contradictionSchema,
   evidenceListSchema,
   evidenceSchema,
   gapListSchema,
@@ -13,6 +14,7 @@ import {
   relationListSchema,
   sequenceListSchema,
   suggestionListSchema,
+  suggestionSchema,
   timeEventListSchema,
 } from '@/schemas'
 import { adapters } from './adapters'
@@ -68,6 +70,15 @@ export const realApi: AdheedApi = {
         }),
       ),
     ),
+  updateCase: async (caseId, input) =>
+    caseSchema.parse(
+      adapters.case(
+        await request(endpoints.case(caseId), {
+          method: 'PATCH',
+          body: JSON.stringify(input),
+        }),
+      ),
+    ),
   listEvidence: async (caseId) =>
     evidenceListSchema.parse(
       adapters.evidenceList(await request(endpoints.evidence(caseId))),
@@ -105,6 +116,15 @@ export const realApi: AdheedApi = {
     suggestionListSchema.parse(
       adapters.suggestionList(await request(endpoints.suggestions(caseId))),
     ),
+  updateSuggestion: async (caseId, suggestionId, input) =>
+    suggestionSchema.parse(
+      adapters.suggestion(
+        await request(endpoints.suggestion(caseId, suggestionId), {
+          method: 'PATCH',
+          body: JSON.stringify(input),
+        }),
+      ),
+    ),
   listSequences: async (caseId) =>
     sequenceListSchema.parse(
       adapters.sequenceList(await request(endpoints.sequences(caseId))),
@@ -112,6 +132,15 @@ export const realApi: AdheedApi = {
   listContradictions: async (caseId) =>
     contradictionListSchema.parse(
       adapters.contradictionList(await request(endpoints.contradictions(caseId))),
+    ),
+  updateContradiction: async (caseId, contradictionId, input) =>
+    contradictionSchema.parse(
+      adapters.contradiction(
+        await request(endpoints.contradiction(caseId, contradictionId), {
+          method: 'PATCH',
+          body: JSON.stringify(input),
+        }),
+      ),
     ),
   listGaps: async (caseId) =>
     gapListSchema.parse(adapters.gapList(await request(endpoints.gaps(caseId)))),

@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
 import { CertaintyBadge } from '@/components/ui/CertaintyBadge'
 import { useSuggestions } from '@/features/network/hooks/useSuggestions'
+import { useUpdateSuggestion } from '@/features/network/hooks/useUpdateSuggestion'
 import type { Evidence } from '@/schemas'
-
-type Decision = 'accepted' | 'rejected'
 
 type SuggestionsPanelProps = {
   caseId: string
@@ -14,12 +13,17 @@ type SuggestionsPanelProps = {
 
 export function SuggestionsPanel({ caseId, evidence }: SuggestionsPanelProps) {
   const suggestions = useSuggestions(caseId)
-  const [decisions, setDecisions] = useState<Record<string, Decision>>({})
+  const updateSuggestion = useUpdateSuggestion(caseId)
+  const [failedId, setFailedId] = useState<string | null>(null)
   const { t } = useT()
   const names = new Map(evidence.map((item) => [item.id, item.name]))
 
-  function recordDecision(id: string, status: Decision) {
-    setDecisions((current) => ({ ...current, [id]: status }))
+  function recordDecision(id: string, status: 'accepted' | 'rejected') {
+    setFailedId((current) => (current === id ? null : current))
+    updateSuggestion.mutate(
+      { id, status },
+      { onError: () => setFailedId(id) },
+    )
   }
 
   return (
@@ -39,7 +43,7 @@ export function SuggestionsPanel({ caseId, evidence }: SuggestionsPanelProps) {
       ) : null}
       <ul className="flex flex-col gap-inline">
         {(suggestions.data ?? []).map((item) => {
-          const decision = decisions[item.id]
+          const saved = item.status === 'accepted' || item.status === 'rejected'
           return (
             <li
               key={item.id}
@@ -67,13 +71,11 @@ export function SuggestionsPanel({ caseId, evidence }: SuggestionsPanelProps) {
                   ))}
                 </ul>
               </div>
-              {decision ? (
-                <p className="text-caption text-text-muted">
-                  {decision === 'accepted'
-                    ? t('network.acceptedLocal')
-                    : t('network.rejectedLocal')}
-                  {' — '}
-                  {t('network.notSaved')}
+              {saved ? (
+                <p role="status" className="text-caption text-text">
+                  {item.status === 'accepted'
+                    ? t('network.accepted')
+                    : t('network.rejected')}
                 </p>
               ) : (
                 <div className="flex flex-wrap gap-2">
@@ -93,6 +95,11 @@ export function SuggestionsPanel({ caseId, evidence }: SuggestionsPanelProps) {
                   </button>
                 </div>
               )}
+              {failedId === item.id ? (
+                <p role="alert" className="text-caption text-danger">
+                  {t('network.decisionError')}
+                </p>
+              ) : null}
             </li>
           )
         })}

@@ -2,8 +2,7 @@ import { adaptList, isRecord, rename, type Adapter } from './shared'
 
 /**
  * Backend: `timestamp` → frontend: `occurredAt`.
- * `evidenceIds` / `placeId` / `personIds` are not sent yet and stay absent;
- * the schema defaults them to "none known".
+ * `evidenceIds`, `placeId` and `personIds` pass through as sent.
  */
 export const adaptTimeEvent: Adapter = (raw) =>
   isRecord(raw) ? rename(raw, 'timestamp', 'occurredAt') : raw

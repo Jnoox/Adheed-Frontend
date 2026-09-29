@@ -27,6 +27,9 @@ const backend = {
     reason: 'Manager states 22:00 but logs show 22:30.',
     evidenceIds: ['ev-2'],
     certainty: 'fact',
+    leftLabel: 'Manager: 22:00',
+    rightLabel: 'Log: 22:30',
+    reviewed: false,
   },
   gap: {
     id: 'gap-1',
@@ -35,6 +38,10 @@ const backend = {
     reason: 'Glass broken but no tool recovered.',
     evidenceIds: [],
     certainty: 'inference',
+    startsAt: '2026-03-12T16:15:00.000Z',
+    endsAt: '2026-03-12T16:40:00.000Z',
+    beforeEventId: 'evt-05',
+    afterEventId: 'evt-06',
   },
   event: {
     id: 'evt-1',
@@ -43,6 +50,9 @@ const backend = {
     timestamp: '2023-10-24T22:30:00.000Z',
     timePrecision: 'exact',
     description: 'The primary alarm system was triggered.',
+    evidenceIds: ['ev-1'],
+    placeId: 'pl-1',
+    personIds: ['p-1'],
   },
   relation: {
     id: 'rel-1',
@@ -52,6 +62,8 @@ const backend = {
     toId: 'ev-1',
     toType: 'evidence',
     relationType: 'seen_in',
+    reason: 'The vehicle matches an earlier description.',
+    evidenceIds: ['ev-1'],
   },
   audit: {
     id: 'aud-1',
@@ -66,6 +78,8 @@ const backend = {
     name: 'Al-Dhahab Store',
     address: 'Downtown Market',
     type: 'Commercial',
+    x: 0.54,
+    y: 0.38,
   },
 }
 
@@ -82,28 +96,30 @@ describe('backend adapters', () => {
     expect(suggestion?.summary).toBe('Investigate the alleyway CCTV')
     expect(contradiction?.summary).toBe('Alarm timing mismatch')
     expect(contradiction?.reviewed).toBe(false)
-    expect(contradiction?.leftLabel).toBeUndefined()
+    expect(contradiction?.leftLabel).toBe('Manager: 22:00')
+    expect(contradiction?.rightLabel).toBe('Log: 22:30')
     expect(gap?.summary).toBe('Missing weapon')
     expect(gap?.evidenceIds).toEqual([])
-    expect(gap?.startsAt).toBeUndefined()
+    expect(gap?.startsAt).toBe('2026-03-12T16:15:00.000Z')
+    expect(gap?.endsAt).toBe('2026-03-12T16:40:00.000Z')
   })
 
-  it('maps timestamp to occurredAt on events and leaves links empty, not invented', () => {
+  it('maps timestamp to occurredAt and keeps the links the backend sends', () => {
     const [event] = timeEventListSchema.parse(adapters.timeEventList([backend.event]))
 
     expect(event?.occurredAt).toBe('2023-10-24T22:30:00.000Z')
-    expect(event?.evidenceIds).toEqual([])
-    expect(event?.personIds).toEqual([])
-    expect(event?.placeId).toBeNull()
+    expect(event?.evidenceIds).toEqual(['ev-1'])
+    expect(event?.personIds).toEqual(['p-1'])
+    expect(event?.placeId).toBe('pl-1')
   })
 
-  it('does not turn a relation type into a reason', () => {
+  it('keeps a relation reason and does not replace it with the relation type', () => {
     const [relation] = relationListSchema.parse(
       adapters.relationList([backend.relation]),
     )
 
-    expect(relation?.reason).toBeUndefined()
-    expect(relation?.evidenceIds).toEqual([])
+    expect(relation?.reason).toBe('The vehicle matches an earlier description.')
+    expect(relation?.evidenceIds).toEqual(['ev-1'])
     expect(relation).not.toHaveProperty('relationType')
   })
 
@@ -116,9 +132,10 @@ describe('backend adapters', () => {
     expect(entry?.details).toBeUndefined()
   })
 
-  it('accepts a place without scene coordinates', () => {
+  it('keeps the place coordinates the backend sends', () => {
     const [place] = placeListSchema.parse(adapters.placeList([backend.place]))
-    expect(place?.x).toBeUndefined()
+    expect(place?.x).toBe(0.54)
+    expect(place?.y).toBe(0.38)
   })
 
   it('does not overwrite a value already under our name', () => {

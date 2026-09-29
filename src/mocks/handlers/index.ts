@@ -1,7 +1,7 @@
 import type { AdheedApi } from '@/api/types'
 import { listAudit } from './audit'
-import { getCase, createCase, listCases } from './cases'
-import { listContradictions } from './contradictions'
+import { getCase, createCase, listCases, updateCase } from './cases'
+import { listContradictions, updateContradiction } from './contradictions'
 import { getDashboard } from './dashboard'
 import { createEvidence, getEvidence, listEvidence } from './evidence'
 import { listEvents } from './events'
@@ -10,13 +10,14 @@ import { listPeople } from './people'
 import { listPlaces } from './places'
 import { listRelations } from './relations'
 import { listSequences } from './sequences'
-import { listSuggestions } from './suggestions'
+import { listSuggestions, updateSuggestion } from './suggestions'
 
 export const mockApi: AdheedApi = {
   getDashboard,
   listCases,
   getCase,
   createCase,
+  updateCase,
   listEvidence,
   getEvidence,
   createEvidence,
@@ -25,8 +26,10 @@ export const mockApi: AdheedApi = {
   listEvents,
   listRelations,
   listSuggestions,
+  updateSuggestion,
   listSequences,
   listContradictions,
+  updateContradiction,
   listGaps,
   listAudit,
 }

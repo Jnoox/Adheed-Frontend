@@ -1,9 +1,9 @@
 import { adaptAuditEntryList } from './audit'
-import { adaptContradictionList } from './contradiction'
+import { adaptContradiction, adaptContradictionList } from './contradiction'
 import { adaptGapList } from './gap'
 import { adaptRelationList } from './relation'
 import { identity, type Adapter } from './shared'
-import { adaptSuggestionList } from './suggestion'
+import { adaptSuggestion, adaptSuggestionList } from './suggestion'
 import { adaptTimeEventList } from './time-event'
 
 export { normaliseAuditAction } from './audit'
@@ -23,8 +23,10 @@ export const adapters = {
   placeList: identity satisfies Adapter,
   timeEventList: adaptTimeEventList,
   relationList: adaptRelationList,
+  suggestion: adaptSuggestion,
   suggestionList: adaptSuggestionList,
   sequenceList: identity satisfies Adapter,
+  contradiction: adaptContradiction,
   contradictionList: adaptContradictionList,
   gapList: adaptGapList,
   auditEntryList: adaptAuditEntryList,

@@ -7,10 +7,16 @@ import { scenarioColumns } from '@/features/analysis/compare'
 import { ContradictionCard } from '@/features/analysis/components/ContradictionCard'
 import { ScenarioComparison } from '@/features/analysis/components/ScenarioComparison'
 import {
+  forgetContradictionDecision,
+  rememberContradictionDecision,
+  storedContradictionDecision,
+} from '@/features/analysis/contradiction-decision'
+import {
   contradictionSeverity,
   type ContradictionDecision,
 } from '@/features/analysis/decision'
 import { useAnalysis } from '@/features/analysis/hooks/useAnalysis'
+import { useUpdateContradiction } from '@/features/analysis/hooks/useUpdateContradiction'
 import type { TranslationKey } from '@/i18n/translate'
 import { cn } from '@/lib/cn'
 
@@ -26,6 +32,8 @@ export default function AnalysisPage() {
   const analysis = useAnalysis(caseId)
   const [tab, setTab] = useState<AnalysisTab>('contradictions')
   const [decisions, setDecisions] = useState<Record<string, ContradictionDecision>>({})
+  const [failedId, setFailedId] = useState<string | null>(null)
+  const updateContradiction = useUpdateContradiction(caseId)
   const { t } = useT()
 
   const queries = [
@@ -59,10 +67,14 @@ export default function AnalysisPage() {
       rank[contradictionSeverity(right.certainty)]
     )
   })
+  function decisionFor(id: string, reviewed: boolean) {
+    return decisions[id] ?? storedContradictionDecision(id, reviewed)
+  }
+
   const dismissed = new Set(
-    Object.entries(decisions)
-      .filter(([, decision]) => decision === 'dismissed')
-      .map(([id]) => id),
+    contradictions
+      .filter((item) => decisionFor(item.id, item.reviewed) === 'dismissed')
+      .map((item) => item.id),
   )
   const columns = scenarioColumns(
     analysis.sequencesQuery.data ?? [],
@@ -119,13 +131,32 @@ export default function AnalysisPage() {
                   contradiction={contradiction}
                   severity={contradictionSeverity(contradiction.certainty)}
                   evidenceNames={evidenceNames}
-                  decision={decisions[contradiction.id] ?? null}
-                  onDecide={(decision) =>
+                  decision={decisionFor(contradiction.id, contradiction.reviewed)}
+                  failed={failedId === contradiction.id}
+                  onDecide={(decision) => {
+                    rememberContradictionDecision(contradiction.id, decision)
                     setDecisions((current) => ({
                       ...current,
                       [contradiction.id]: decision,
                     }))
-                  }
+                    setFailedId((current) =>
+                      current === contradiction.id ? null : current,
+                    )
+                    updateContradiction.mutate(
+                      { id: contradiction.id, reviewed: true },
+                      {
+                        onError: () => {
+                          forgetContradictionDecision(contradiction.id)
+                          setDecisions((current) => {
+                            const next = { ...current }
+                            delete next[contradiction.id]
+                            return next
+                          })
+                          setFailedId(contradiction.id)
+                        },
+                      },
+                    )
+                  }}
                 />
               ))}
             </div>

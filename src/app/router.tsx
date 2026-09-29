@@ -10,6 +10,7 @@ import ActivityLogPage from '@/features/audit/pages/ActivityLogPage'
 import CaseFilePage from '@/features/cases/pages/CaseFilePage'
 import CasesListPage from '@/features/cases/pages/CasesListPage'
 import CreateCasePage from '@/features/cases/pages/CreateCasePage'
+import EditCasePage from '@/features/cases/pages/EditCasePage'
 import DashboardPage from '@/features/dashboard/pages/DashboardPage'
 import EvidenceDetailPage from '@/features/evidence/pages/EvidenceDetailPage'
 import EvidenceListPage from '@/features/evidence/pages/EvidenceListPage'
@@ -22,6 +23,10 @@ export const appRoutes: RouteObject[] = [
   {
     path: '/cases/new',
     element: <CreateCasePage />,
+  },
+  {
+    path: '/cases/:caseId/edit',
+    element: <EditCasePage />,
   },
   {
     path: '/',

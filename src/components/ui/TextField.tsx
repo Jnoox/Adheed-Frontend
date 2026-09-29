@@ -4,11 +4,13 @@ import { cn } from '@/lib/cn'
 type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string
   error?: string
+  note?: string
 }
 
 export function TextField({
   label,
   error,
+  note,
   required,
   id,
   className,
@@ -16,6 +18,12 @@ export function TextField({
   ...props
 }: TextFieldProps) {
   const fieldId = id ?? props.name
+  const describedBy = [
+    error ? `${fieldId}-error` : null,
+    note ? `${fieldId}-note` : null,
+  ]
+    .filter((value) => value !== null)
+    .join(' ')
 
   return (
     <div className="flex flex-col gap-2">
@@ -32,7 +40,7 @@ export function TextField({
         id={fieldId}
         disabled={disabled}
         aria-invalid={error ? true : undefined}
-        aria-describedby={error ? `${fieldId}-error` : undefined}
+        aria-describedby={describedBy || undefined}
         className={cn(
           'w-full rounded-field border border-field-border bg-field px-inline py-4 text-start text-title text-text',
           'placeholder:text-text-muted',
@@ -46,6 +54,11 @@ export function TextField({
       {error ? (
         <p id={`${fieldId}-error`} role="alert" className="text-caption text-danger">
           {error}
+        </p>
+      ) : null}
+      {note ? (
+        <p id={`${fieldId}-note`} className="text-caption text-text-muted">
+          {note}
         </p>
       ) : null}
     </div>

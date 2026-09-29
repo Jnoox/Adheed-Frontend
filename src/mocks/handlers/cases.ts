@@ -1,5 +1,5 @@
 import { cases } from '@/mocks/data'
-import { caseListSchema, caseSchema, type CreateCaseInput } from '@/schemas'
+import { caseListSchema, caseSchema, type CreateCaseInput, type UpdateCaseInput } from '@/schemas'
 
 export async function listCases() {
   return caseListSchema.parse(cases)
@@ -23,4 +23,20 @@ export async function createCase(input: CreateCaseInput) {
   })
   cases.push(created)
   return created
+}
+
+export async function updateCase(caseId: string, input: UpdateCaseInput) {
+  const index = cases.findIndex((item) => item.id === caseId)
+  const current = cases[index]
+  if (!current) throw new Error(`Mock case not found: ${caseId}`)
+  const updated = caseSchema.parse({
+    ...current,
+    ...input,
+    id: current.id,
+    caseNumber: current.caseNumber,
+    createdAt: current.createdAt,
+    updatedAt: new Date().toISOString(),
+  })
+  cases[index] = updated
+  return updated
 }

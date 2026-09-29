@@ -21,8 +21,7 @@ export type NetworkLink = {
   id: string
   source: string
   target: string
-  /** Absent when the backend has not supplied one. The UI must say so, never invent it. */
-  reason?: string
+  reason: string
   evidenceIds: string[]
 }
 

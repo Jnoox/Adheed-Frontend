@@ -35,12 +35,12 @@ export function SequenceView({
         {steps.length === 0 ? (
           <p className="text-body text-text-muted">{t('timeline.emptySteps')}</p>
         ) : (
-          <ol className="flex items-start gap-2 overflow-x-auto pb-2">
+          <ol className="flex min-is-0 items-start gap-2 overflow-x-auto pb-2">
             {steps.map((step, index) => {
               const dot = certaintyPresentation[step.certainty].dot
               return (
-                <li key={step.id} className="flex items-start gap-2">
-                  <div className="flex flex-col items-center">
+                <li key={step.id} className="flex shrink-0 items-start gap-2">
+                  <div className="flex shrink-0 flex-col items-center">
                     <img
                       src={dot.src}
                       alt=""
@@ -68,7 +68,7 @@ export function SequenceView({
                       alt=""
                       width={71}
                       height={1}
-                      className="mt-28"
+                      className="mt-28 shrink-0"
                     />
                   ) : null}
                 </li>
