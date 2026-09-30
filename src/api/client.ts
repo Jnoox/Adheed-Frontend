@@ -34,11 +34,13 @@ export class ApiError extends Error {
 }
 
 export async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const token = localStorage.getItem('auth_token')
   const response = await fetch(`${env.API_BASE_URL}${path}`, {
     ...init,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...init?.headers,
     },
   })
@@ -55,6 +57,16 @@ export async function request<T>(path: string, init?: RequestInit): Promise<T> {
 // Every real response goes raw → adapter (rename backend field names) → Zod.
 // Adapters never invent content; whatever they cannot map still fails loudly.
 export const realApi: AdheedApi = {
+  login: async (credentials: any) =>
+    request('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+    }),
+  signup: async (userData: any) =>
+    request('/auth/signup', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+    }),
   getDashboard: async () =>
     dashboardSchema.parse(adapters.dashboard(await request(endpoints.dashboard))),
   listCases: async () =>

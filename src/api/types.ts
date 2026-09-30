@@ -17,6 +17,8 @@ import type {
 } from '@/schemas'
 
 export type AdheedApi = {
+  login: (credentials: any) => Promise<{ token: string; user: any }>
+  signup: (userData: any) => Promise<{ token: string; user: any }>
   getDashboard: () => Promise<Dashboard>
   listCases: () => Promise<Case[]>
   getCase: (caseId: string) => Promise<Case>
