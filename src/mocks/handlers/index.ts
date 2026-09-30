@@ -1,4 +1,5 @@
 import type { AdheedApi } from '@/api/types'
+import { login, signup } from './auth'
 import { listAudit } from './audit'
 import { getCase, createCase, listCases, updateCase } from './cases'
 import { listContradictions, updateContradiction } from './contradictions'
@@ -13,6 +14,8 @@ import { listSequences } from './sequences'
 import { listSuggestions, updateSuggestion } from './suggestions'
 
 export const mockApi: AdheedApi = {
+  login,
+  signup,
   getDashboard,
   listCases,
   getCase,

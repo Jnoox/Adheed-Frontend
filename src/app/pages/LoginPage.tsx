@@ -3,12 +3,12 @@ import { useNavigate, Link } from 'react-router-dom'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { TextField } from '@/components/ui/TextField'
-import { realApi } from '@/api/client'
+import { api } from '@/api'
 import { useT } from '@/app/LanguageProvider'
 
 export default function LoginPage() {
   const navigate = useNavigate()
-  const { t, toggleLanguage, language } = useT()
+  const { t, toggleLanguage } = useT()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -16,7 +16,7 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const { token } = await realApi.login({ email, password })
+      const { token } = await api.login({ email, password })
       localStorage.setItem('auth_token', token)
       navigate('/')
     } catch (err) {
