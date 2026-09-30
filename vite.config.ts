@@ -14,6 +14,9 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './tests/setup.ts',
     globals: true,
+    // Must outlast Testing Library's asyncUtilTimeout, or a slow query
+    // fails the file before the wait reports what was missing.
+    testTimeout: 15000,
     // Tests always run against the mock layer, whatever .env.local says.
     env: { VITE_USE_MOCKS: 'true' },
   },

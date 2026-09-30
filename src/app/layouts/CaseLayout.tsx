@@ -1,8 +1,8 @@
-import { NavLink, Outlet, useParams } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
+import { TabLink } from '@/components/ui/Tabs'
 import { CaseSearch } from '@/features/search/components/CaseSearch'
 import type { TranslationKey } from '@/i18n/translate'
-import { cn } from '@/lib/cn'
 
 const tabs: Array<{ to: string; labelKey: TranslationKey }> = [
   { to: '', labelKey: 'nav.caseFile' },
@@ -23,23 +23,15 @@ export function CaseLayout() {
   return (
     <div className="flex min-h-full flex-col">
       <CaseSearch caseId={caseId ?? ''} />
-      <nav className="flex flex-wrap gap-1 border-b border-border px-page py-2">
+      <nav className="flex flex-wrap gap-2 border-b border-border px-page py-2">
         {tabs.map((tab) => (
-          <NavLink
+          <TabLink
             key={tab.to}
             to={tab.to === '' ? base : `${base}/${tab.to}`}
             end={tab.to === ''}
-            className={({ isActive }) =>
-              cn(
-                'rounded-md px-inline py-2 text-body',
-                isActive
-                  ? 'bg-surface-raised text-accent'
-                  : 'text-text-muted hover:text-text',
-              )
-            }
           >
             {t(tab.labelKey)}
-          </NavLink>
+          </TabLink>
         ))}
       </nav>
       <Outlet />

@@ -1,4 +1,5 @@
 import { cn } from '@/lib/cn'
+import { controlFocus } from './control'
 
 export type SegmentedOption<T extends string> = {
   value: T
@@ -30,7 +31,7 @@ export function SegmentedControl<T extends string>({
       <div
         role="radiogroup"
         aria-labelledby={`${name}-label`}
-        className="flex flex-wrap gap-2"
+        className="flex flex-wrap gap-3"
       >
         {options.map((option) => {
           const selected = option.value === value
@@ -44,7 +45,8 @@ export function SegmentedControl<T extends string>({
               disabled={disabled}
               onClick={() => onChange(option.value)}
               className={cn(
-                'min-w-24 rounded-field px-inline py-4 text-subtitle font-semibold',
+                'min-h-11 min-w-24 rounded-field px-4 text-body font-semibold',
+                controlFocus,
                 'disabled:cursor-not-allowed disabled:opacity-50',
                 selected
                   ? 'bg-accent text-accent-text'

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
 import { ErrorState } from '@/components/ui/ErrorState'
+import { TabButton, TabList } from '@/components/ui/Tabs'
 import { Spinner } from '@/components/ui/Spinner'
 import { scenarioColumns } from '@/features/analysis/compare'
 import { ContradictionCard } from '@/features/analysis/components/ContradictionCard'
@@ -18,7 +19,6 @@ import {
 import { useAnalysis } from '@/features/analysis/hooks/useAnalysis'
 import { useUpdateContradiction } from '@/features/analysis/hooks/useUpdateContradiction'
 import type { TranslationKey } from '@/i18n/translate'
-import { cn } from '@/lib/cn'
 
 type AnalysisTab = 'contradictions' | 'scenarios'
 
@@ -88,28 +88,18 @@ export default function AnalysisPage() {
         <h1 className="text-title text-text-inverse">
           {t('analysis.title', { caseNumber: analysis.caseQuery.data.caseNumber })}
         </h1>
-        <div role="tablist" aria-label={t('analysis.tabs')} className="flex gap-2">
-          {tabs.map((item) => {
-            const selected = tab === item.id
-            return (
-              <button
-                key={item.id}
-                type="button"
-                role="tab"
-                aria-selected={selected}
-                className={cn(
-                  'rounded-lg px-inline py-2 text-subtitle',
-                  selected
-                    ? 'bg-surface-raised text-accent'
-                    : 'bg-accent-hover text-text-inverse-muted',
-                )}
-                onClick={() => setTab(item.id)}
-              >
-                {t(item.labelKey)}
-              </button>
-            )
-          })}
-        </div>
+        <TabList label={t('analysis.tabs')}>
+          {tabs.map((item) => (
+            <TabButton
+              key={item.id}
+              selected={tab === item.id}
+              tone="onAccent"
+              onSelect={() => setTab(item.id)}
+            >
+              {t(item.labelKey)}
+            </TabButton>
+          ))}
+        </TabList>
       </header>
 
       {tab === 'contradictions' ? (

@@ -2,6 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
 import { DEMO_CASE_ID } from '@/config/demo'
 import type { TranslationKey } from '@/i18n/translate'
+import { controlFocus } from '@/components/ui/control'
 import { cn } from '@/lib/cn'
 
 const items: Array<{
@@ -40,7 +41,7 @@ export function Sidebar() {
           {t('common.brand')}
         </p>
       </div>
-      <nav className="flex flex-1 flex-col gap-1">
+      <nav className="flex flex-1 flex-col gap-2">
         {items.map((item) => {
           const isActive = item.match
             ? item.match(pathname)
@@ -54,7 +55,8 @@ export function Sidebar() {
               to={item.to}
               end={item.end}
               className={cn(
-                'flex items-center gap-2 whitespace-nowrap rounded-full px-inline py-2 text-start text-body',
+                'flex min-h-10 items-center gap-2 whitespace-nowrap rounded-full px-4 text-start text-body',
+                controlFocus,
                 isActive
                   ? 'bg-accent text-accent-text'
                   : 'text-text hover:bg-surface-tint',
@@ -77,7 +79,11 @@ export function Sidebar() {
           type="button"
           onClick={toggleLanguage}
           aria-label={t('common.switchLanguage')}
-          className="rounded-md border border-border px-2 py-1 text-body text-text"
+          className={cn(
+            'inline-flex min-h-10 items-center rounded-md border border-border bg-transparent px-4 text-body text-text',
+            controlFocus,
+            'hover:border-accent',
+          )}
         >
           {t('common.languageToggle')}
         </button>

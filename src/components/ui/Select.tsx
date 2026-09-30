@@ -1,5 +1,6 @@
 import type { SelectHTMLAttributes } from 'react'
 import { cn } from '@/lib/cn'
+import { controlFocus } from './control'
 
 type SelectOption = {
   value: string
@@ -44,7 +45,8 @@ export function Select({
         aria-describedby={error ? `${fieldId}-error` : undefined}
         className={cn(
           'w-full rounded-field border border-field-border bg-field px-inline py-4 text-start text-title text-text',
-          'focus:border-2 focus:border-accent focus:outline-none',
+          'min-h-11 focus:border-accent',
+          controlFocus,
           'disabled:cursor-not-allowed disabled:opacity-50',
           error && 'border-danger',
           className,

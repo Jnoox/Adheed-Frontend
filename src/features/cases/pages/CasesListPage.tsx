@@ -2,12 +2,12 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
 import { Button } from '@/components/ui/Button'
+import { FilterGroup, FilterPill } from '@/components/ui/FilterPill'
 import { CaseStatusPill } from '@/components/ui/CaseStatusPill'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { Spinner } from '@/components/ui/Spinner'
 import { formatTimeAgo } from '@/lib/datetime'
-import { cn } from '@/lib/cn'
 import { useCaseAlertCounts, useCases } from '../hooks/useCases'
 
 const filters = ['all', 'active', 'review', 'closed'] as const
@@ -57,24 +57,13 @@ export default function CasesListPage() {
         <Button onClick={() => navigate('/cases/new')}>{t('cases.create')}</Button>
       </div>
 
-      <div className="flex flex-wrap gap-2" role="group" aria-label={t('cases.filterGroup')}>
+      <FilterGroup label={t('cases.filterGroup')}>
         {filters.map((id) => (
-          <button
-            key={id}
-            type="button"
-            aria-pressed={filter === id}
-            onClick={() => setFilter(id)}
-            className={cn(
-              'rounded-full px-inline py-2 text-body',
-              filter === id
-                ? 'bg-accent text-accent-text'
-                : 'border border-border bg-surface-raised text-text',
-            )}
-          >
+          <FilterPill key={id} pressed={filter === id} onClick={() => setFilter(id)}>
             {t(filterKey[id])}
-          </button>
+          </FilterPill>
         ))}
-      </div>
+      </FilterGroup>
 
       {filter === 'review' && alerts.isError ? (
         <EmptyState title={t('cases.reviewUnavailable')} />

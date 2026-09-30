@@ -1,5 +1,6 @@
 import type { InputHTMLAttributes } from 'react'
 import { cn } from '@/lib/cn'
+import { controlFocus } from './control'
 
 type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string
@@ -44,7 +45,8 @@ export function TextField({
         className={cn(
           'w-full rounded-field border border-field-border bg-field px-inline py-4 text-start text-title text-text',
           'placeholder:text-text-muted',
-          'focus:border-2 focus:border-accent focus:outline-none',
+          'focus:border-accent',
+          controlFocus,
           'disabled:cursor-not-allowed disabled:opacity-50',
           error && 'border-danger',
           className,
@@ -109,7 +111,8 @@ export function TextArea({
         className={cn(
           'min-h-28 w-full resize-y rounded-field border border-field-border bg-field px-inline py-4 text-start text-subtitle text-text',
           'placeholder:text-text-muted',
-          'focus:border-2 focus:border-accent focus:outline-none',
+          'focus:border-accent',
+          controlFocus,
           'disabled:cursor-not-allowed disabled:opacity-50',
           error && 'border-danger',
         )}

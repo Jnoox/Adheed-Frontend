@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
+import { Button } from '@/components/ui/Button'
 import { CertaintyBadge } from '@/components/ui/CertaintyBadge'
 import { useSuggestions } from '@/features/network/hooks/useSuggestions'
 import { useUpdateSuggestion } from '@/features/network/hooks/useUpdateSuggestion'
@@ -79,20 +80,15 @@ export function SuggestionsPanel({ caseId, evidence }: SuggestionsPanelProps) {
                 </p>
               ) : (
                 <div className="flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    className="rounded-full bg-accent px-inline py-2 text-body text-accent-text"
-                    onClick={() => recordDecision(item.id, 'accepted')}
-                  >
+                  <Button onClick={() => recordDecision(item.id, 'accepted')}>
                     {t('network.accept')}
-                  </button>
-                  <button
-                    type="button"
-                    className="rounded-full border border-border px-inline py-2 text-body text-text"
+                  </Button>
+                  <Button
+                    variant="secondary"
                     onClick={() => recordDecision(item.id, 'rejected')}
                   >
                     {t('network.reject')}
-                  </button>
+                  </Button>
                 </div>
               )}
               {failedId === item.id ? (

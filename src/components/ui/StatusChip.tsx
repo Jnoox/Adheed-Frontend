@@ -25,7 +25,7 @@ export function StatusChip({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full border px-2 py-1 text-caption',
+        'inline-flex min-h-10 items-center rounded-full border px-4 text-body',
         toneClass[tone],
         className,
       )}

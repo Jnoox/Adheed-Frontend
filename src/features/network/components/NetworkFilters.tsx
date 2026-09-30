@@ -7,6 +7,7 @@ import {
 import { filterDotClass } from '@/components/network/node-style'
 import { useT } from '@/app/LanguageProvider'
 import type { TranslationKey } from '@/i18n/translate'
+import { FilterPill } from '@/components/ui/FilterPill'
 import { cn } from '@/lib/cn'
 
 const kindKey: Record<NetworkKind, TranslationKey> = {
@@ -31,31 +32,25 @@ export function NetworkFilters({ nodes, hidden, onToggle }: NetworkFiltersProps)
   const counts = countByKind(nodes)
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       <h2 className="text-start text-subtitle text-text-label">{t('network.filters')}</h2>
       {networkKindOrder.map((kind) => {
         if (counts[kind] === 0) return null
         const visible = !hidden.has(kind)
         return (
-          <button
+          <FilterPill
             key={kind}
-            type="button"
-            aria-pressed={visible}
+            pressed={visible}
             onClick={() => onToggle(kind)}
-            className={cn(
-              'flex items-center gap-2 rounded-full border px-inline py-2 text-start text-body',
-              visible
-                ? 'border-accent bg-surface-tint text-text'
-                : 'border-field-border bg-field text-text-muted',
-            )}
+            className="w-full justify-between"
           >
             <span
               className={cn('size-4 shrink-0 rounded-full', filterDotClass[kind])}
               aria-hidden="true"
             />
-            <span>{t(kindKey[kind])}</span>
+            <span className="min-w-0 break-words">{t(kindKey[kind])}</span>
             <span className="ms-auto font-latin">({counts[kind]})</span>
-          </button>
+          </FilterPill>
         )
       })}
     </div>

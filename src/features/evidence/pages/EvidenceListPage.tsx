@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
 import { Button } from '@/components/ui/Button'
+import { FilterGroup, FilterPill } from '@/components/ui/FilterPill'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { Select } from '@/components/ui/Select'
@@ -30,8 +31,6 @@ import {
   useEvidence,
   useEvidenceCase,
 } from '@/features/evidence/hooks/useEvidence'
-import { cn } from '@/lib/cn'
-
 export default function EvidenceListPage() {
   const { caseId = '' } = useParams()
   const navigate = useNavigate()
@@ -91,28 +90,13 @@ export default function EvidenceListPage() {
         </h1>
         <Button onClick={() => setAdding(true)}>{t('evidence.addNew')}</Button>
       </header>
-      <div className="flex flex-wrap gap-2" role="group" aria-label={t('evidence.filterGroup')}>
-        {evidenceFilterIds.map((id) => {
-          const active = id === filter
-          return (
-            <button
-              key={id}
-              type="button"
-              aria-pressed={active}
-              onClick={() => setFilter(id)}
-              className={cn(
-                'rounded-full px-inline py-2 text-title',
-                active
-                  ? 'bg-accent text-text-inverse'
-                  : 'border border-field-border bg-field text-text-muted',
-              )}
-            >
-              {t(evidenceFilterKey[id])}{' '}
-              <span className="font-latin">({counts[id]})</span>
-            </button>
-          )
-        })}
-      </div>
+      <FilterGroup label={t('evidence.filterGroup')}>
+        {evidenceFilterIds.map((id) => (
+          <FilterPill key={id} pressed={id === filter} onClick={() => setFilter(id)}>
+            {t(evidenceFilterKey[id])} <span className="font-latin">({counts[id]})</span>
+          </FilterPill>
+        ))}
+      </FilterGroup>
       <div className="grid grid-cols-2 gap-inline">
         <TextField
           name="evidence-search"
