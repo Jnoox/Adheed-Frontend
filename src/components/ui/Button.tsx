@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/lib/cn'
+import { controlFocus } from './control'
 import { Spinner } from './Spinner'
 
 type ButtonVariant =
@@ -21,23 +22,18 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variantClass: Record<ButtonVariant, string> = {
   primary:
-    'bg-accent text-accent-text hover:bg-accent-hover active:opacity-80',
+    'min-h-11 bg-accent px-5 text-accent-text hover:bg-accent-hover active:bg-accent-active',
   secondary:
-    'bg-surface-raised text-text border border-border hover:border-border-strong active:opacity-80',
-  ghost: 'bg-transparent text-text hover:bg-surface-raised active:opacity-80',
+    'min-h-10 border border-border bg-transparent px-4 text-text hover:border-accent active:border-accent',
+  ghost:
+    'min-h-10 bg-transparent px-4 text-text hover:bg-surface-raised active:bg-surface-tint',
   danger:
-    'bg-danger text-accent-text hover:opacity-90 active:opacity-80',
+    'min-h-11 bg-danger px-5 text-accent-text hover:opacity-90 active:opacity-80',
   warning:
-    'bg-warning text-text-inverse hover:opacity-90 active:opacity-80',
-  inverse: 'bg-surface-raised text-accent hover:bg-surface',
+    'min-h-11 bg-warning px-5 text-text-inverse hover:opacity-90 active:opacity-80',
+  inverse: 'min-h-11 bg-surface-raised px-5 text-accent hover:bg-surface active:bg-surface-tint',
   onInverse:
-    'border border-text-inverse-muted bg-transparent text-text-inverse hover:bg-accent-hover',
-}
-
-const sizeClass: Record<ButtonSize, string> = {
-  sm: 'px-inline py-1 text-caption',
-  md: 'px-inline py-2 text-body',
-  lg: 'px-section py-3 text-subtitle',
+    'min-h-10 border border-text-inverse-muted bg-transparent px-4 text-text-inverse hover:border-accent hover:bg-accent-hover',
 }
 
 export function Button({
@@ -55,10 +51,11 @@ export function Button({
       type={type}
       disabled={disabled || loading}
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-md font-arabic',
+        'inline-flex items-center justify-center gap-2 rounded-md text-body font-arabic',
+        controlFocus,
         'disabled:pointer-events-none disabled:opacity-50',
         variantClass[variant],
-        sizeClass[size],
+        size === 'lg' && 'px-5',
         className,
       )}
       aria-busy={loading || undefined}

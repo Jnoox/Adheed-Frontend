@@ -1,6 +1,7 @@
+import type { Suggestion } from '@/schemas'
 import { CASE_ID } from './cases'
 
-export const suggestions = [
+export const suggestions: Suggestion[] = [
   {
     id: 'sug-01',
     caseId: CASE_ID,

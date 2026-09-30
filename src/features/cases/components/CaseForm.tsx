@@ -1,7 +1,9 @@
 import { useState, type FormEvent } from 'react'
 import backArrow from '@/assets/back-arrow.svg'
 import { useT } from '@/app/LanguageProvider'
+import { cn } from '@/lib/cn'
 import { Button } from '@/components/ui/Button'
+import { controlFocus } from '@/components/ui/control'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { SegmentedControl } from '@/components/ui/SegmentedControl'
 import { TextArea, TextField } from '@/components/ui/TextField'
@@ -69,7 +71,14 @@ export function CaseForm({
   return (
     <form onSubmit={onFormSubmit} className="flex min-h-svh flex-col bg-surface" noValidate>
       <header className="flex items-center justify-between gap-inline bg-accent px-page py-3">
-        <button type="button" onClick={onCancel} className="flex items-center gap-2 text-text-inverse">
+        <button
+          type="button"
+          onClick={onCancel}
+          className={cn(
+            'inline-flex min-h-11 items-center gap-2 px-4 text-text-inverse',
+            controlFocus,
+          )}
+        >
           <img src={backArrow} alt="" width={20} height={15} className="shrink-0 ltr:rotate-180" />
           <h1 className="text-title">{title}</h1>
         </button>

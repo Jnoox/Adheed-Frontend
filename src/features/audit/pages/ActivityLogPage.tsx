@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
+import { Button } from '@/components/ui/Button'
 import { ErrorState } from '@/components/ui/ErrorState'
+import { FilterGroup, FilterPill } from '@/components/ui/FilterPill'
 import { Spinner } from '@/components/ui/Spinner'
 import { useAudit } from '@/features/audit/hooks/useAudit'
 import {
@@ -47,23 +49,16 @@ export default function ActivityLogPage() {
         <h1 className="text-title text-text">
           {t('log.title', { caseNumber: caseQuery.data.caseNumber })}
         </h1>
-        <div className="flex gap-2">
-          <button
-            type="button"
+        <div className="flex flex-wrap gap-2">
+          <Button
+            variant="secondary"
             aria-expanded={filtersOpen}
             aria-controls="audit-filters"
-            className="rounded-full border border-border bg-surface-raised px-inline py-2 text-body text-text"
             onClick={() => setFiltersOpen((open) => !open)}
           >
             {t('log.filter')}
-          </button>
-          <button
-            type="button"
-            className="rounded-full bg-accent px-inline py-2 text-body text-accent-text"
-            onClick={() => downloadLog(entries, t)}
-          >
-            {t('log.export')}
-          </button>
+          </Button>
+          <Button onClick={() => downloadLog(entries, t)}>{t('log.export')}</Button>
         </div>
       </header>
 
@@ -79,27 +74,18 @@ export default function ActivityLogPage() {
             className="flex flex-col gap-stack border-s border-border px-page py-4"
           >
             <p className="text-start text-subtitle text-text-label">{t('log.filterBy')}</p>
-            <div role="group" aria-label={t('log.filterBy')} className="flex flex-col items-start gap-2">
-              {logFilterIds.map((id) => {
-                const selected = filter === id
-                return (
-                  <button
-                    key={id}
-                    type="button"
-                    aria-pressed={selected}
-                    className={cn(
-                      'rounded-field px-inline py-2 text-subtitle',
-                      selected
-                        ? 'bg-surface text-accent'
-                        : 'text-text-label hover:text-accent',
-                    )}
-                    onClick={() => setFilter(id)}
-                  >
-                    {t(logFilterKey[id])}
-                  </button>
-                )
-              })}
-            </div>
+            <FilterGroup label={t('log.filterBy')} direction="column">
+              {logFilterIds.map((id) => (
+                <FilterPill
+                  key={id}
+                  pressed={filter === id}
+                  className="justify-start"
+                  onClick={() => setFilter(id)}
+                >
+                  {t(logFilterKey[id])}
+                </FilterPill>
+              ))}
+            </FilterGroup>
           </aside>
         ) : null}
 

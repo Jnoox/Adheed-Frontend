@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useT } from '@/app/LanguageProvider'
 import { CertaintyBadge } from '@/components/ui/CertaintyBadge'
+import { Button } from '@/components/ui/Button'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { Select } from '@/components/ui/Select'
 import { Spinner } from '@/components/ui/Spinner'
@@ -85,13 +86,9 @@ export default function ReportPage() {
           }))}
           onChange={(event) => setCaseId(event.target.value)}
         />
-        <button
-          type="button"
-          disabled
-          className="w-fit rounded-full border border-border px-inline py-2 text-body text-text-muted"
-        >
+        <Button variant="secondary" disabled className="w-fit">
           {t('report.pdfUnavailable')}
-        </button>
+        </Button>
       </header>
 
       {pending ? <Spinner /> : null}

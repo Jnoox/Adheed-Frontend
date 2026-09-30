@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
 import { Button } from '@/components/ui/Button'
+import { FilterGroup, FilterPill } from '@/components/ui/FilterPill'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { Select } from '@/components/ui/Select'
 import { Spinner } from '@/components/ui/Spinner'
@@ -16,7 +17,6 @@ import {
   relationshipCount,
   type NetworkKind,
 } from '@/components/network/graph'
-import { cn } from '@/lib/cn'
 import { useNetwork } from '@/features/network/hooks/useNetwork'
 
 export default function NetworkPage() {
@@ -206,27 +206,20 @@ function NetworkScreen() {
           }}
         />
       </header>
-      <div className="flex flex-wrap gap-2" role="group" aria-label={t('network.entityFilters')}>
+      <FilterGroup label={t('network.entityFilters')}>
         {entityFilters.map((id) => {
           const active = entity === id
           return (
-            <button
+            <FilterPill
               key={id}
-              type="button"
-              aria-pressed={active}
+              pressed={active}
               onClick={() => setEntity(active ? null : id)}
-              className={cn(
-                'rounded-full px-inline py-2 text-body',
-                active
-                  ? 'bg-accent text-accent-text'
-                  : 'border border-border bg-surface-raised text-text',
-              )}
             >
               {t(entityKey[id])}
-            </button>
+            </FilterPill>
           )
         })}
-      </div>
+      </FilterGroup>
       {entity === 'devices' ? (
         <p className="text-start text-body text-text-muted">{t('network.noDevices')}</p>
       ) : null}

@@ -54,6 +54,7 @@
 
   --color-accent: var(--brand-bronze);
   --color-accent-hover: color-mix(in srgb, var(--brand-bronze) 82%, var(--brand-ivory));
+  --color-accent-active: color-mix(in srgb, var(--brand-bronze) 72%, black);
   --color-accent-text: var(--brand-ivory);
 
   --color-fact: var(--brand-green);

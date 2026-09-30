@@ -1,4 +1,6 @@
 export { Button } from './Button'
+export { FilterGroup, FilterPill } from './FilterPill'
+export { TabButton, TabLink, TabList } from './Tabs'
 export { Card } from './Card'
 export { CertaintyBadge } from './CertaintyBadge'
 export { EmptyState } from './EmptyState'
