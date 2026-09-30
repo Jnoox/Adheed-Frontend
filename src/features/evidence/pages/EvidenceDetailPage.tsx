@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { useT } from '@/app/LanguageProvider'
+import { env } from '@/config/env'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { Spinner } from '@/components/ui/Spinner'
 import {
@@ -54,9 +55,22 @@ export default function EvidenceDetailPage() {
         <h1 className="text-title text-text">{item.name}</h1>
         <EvidenceStatusPill status={item.status} />
       </header>
-      <p className="rounded-md border border-border bg-surface-raised p-inline text-body text-text-muted">
-        {t('evidence.noMedia', { type: typeLabel })}
-      </p>
+      <div className="overflow-hidden rounded-md border border-border bg-surface-raised">
+        <img
+          src={`${env.API_BASE_URL}/media/${item.id}.jpg`}
+          alt={item.name}
+          className="w-full h-auto max-h-[400px] object-cover"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none';
+            if (e.currentTarget.nextElementSibling) {
+              (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
+            }
+          }}
+        />
+        <p className="p-inline text-body text-text-muted" style={{ display: 'none' }}>
+          {t('evidence.noMedia', { type: typeLabel })}
+        </p>
+      </div>
       <dl className="grid gap-inline sm:grid-cols-2">
         <Field label={t('evidence.type')} value={typeLabel} />
         <Field label={t('evidence.source')} value={item.source} />
