@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useT, type Language } from '@/app/LanguageProvider'
 import { Card } from '@/components/ui/Card'
 import { PageHeader } from '@/components/ui/PageHeader'
@@ -19,6 +20,12 @@ const roles: TranslationKey[] = [
 
 export default function SettingsPage() {
   const { t, language, setLanguage } = useT()
+  const navigate = useNavigate()
+
+  const handleSignOut = () => {
+    localStorage.removeItem('auth_token')
+    navigate('/login')
+  }
 
   return (
     <div className="flex max-w-3xl flex-col gap-section text-start">
@@ -64,14 +71,14 @@ export default function SettingsPage() {
               {t('settings.changePassword')}
             </button>
           </div>
-          <button
-            type="button"
-            disabled
-            className="w-fit rounded-md border border-border px-inline py-2 text-body text-text-muted"
-          >
-            {t('settings.signOut')}
-          </button>
         </UnavailableGroup>
+        <button
+          type="button"
+          onClick={handleSignOut}
+          className="mt-4 w-fit rounded-md bg-accent px-inline py-2 text-body font-semibold text-white hover:bg-accent-hover active:bg-accent-active transition-colors"
+        >
+          {t('settings.signOut')}
+        </button>
       </Card>
 
       <Card className="flex flex-col gap-stack">
