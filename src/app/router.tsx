@@ -1,5 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import type { RouteObject } from 'react-router-dom'
+import LoginPage from '@/app/pages/LoginPage'
+import SignupPage from '@/app/pages/SignupPage'
 import { CaseLayout } from '@/app/layouts/CaseLayout'
 import { RootLayout } from '@/app/layouts/RootLayout'
 import NotFoundPage from '@/app/pages/NotFoundPage'
@@ -27,6 +29,14 @@ export const appRoutes: RouteObject[] = [
   {
     path: '/cases/:caseId/edit',
     element: <EditCasePage />,
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/signup',
+    element: <SignupPage />,
   },
   {
     path: '/',
